@@ -1,86 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../src/theme/app_colors.dart';
 import '../../../src/core/app_constants.dart';
+import '../../../src/core/database/firestore_service.dart';
+import '../../../src/core/models/appointment_model.dart';
 
-class DailyAgendaScreen extends StatefulWidget {
+const _mockProfessionalId = 'prof_001_mock';
+
+// Provider da agenda por data selecionada
+final agendaDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
+
+final agendaAppointmentsProvider = StreamProvider<List<AppointmentModel>>((ref) {
+  final selectedDate = ref.watch(agendaDateProvider);
+  final startOfDay = DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+
+  return ref
+      .watch(firestoreServiceProvider)
+      .getProfessionalAppointments(_mockProfessionalId, startOfDay.subtract(const Duration(seconds: 1)))
+      .map((list) => list
+          .where((a) =>
+              a.dateTime.year == selectedDate.year &&
+              a.dateTime.month == selectedDate.month &&
+              a.dateTime.day == selectedDate.day)
+          .toList());
+});
+
+// ══════════════════════════════════════════════════════════
+//  DAILY AGENDA SCREEN — Real Data
+// ══════════════════════════════════════════════════════════
+
+class DailyAgendaScreen extends ConsumerWidget {
   const DailyAgendaScreen({super.key});
 
   @override
-  State<DailyAgendaScreen> createState() => _DailyAgendaScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedDate = ref.watch(agendaDateProvider);
+    final agendaAsync = ref.watch(agendaAppointmentsProvider);
 
-class _DailyAgendaScreenState extends State<DailyAgendaScreen> {
-  DateTime _selectedDate = DateTime.now();
-
-  // Mock data for appointments
-  final List<Map<String, dynamic>> _appointments = [
-    {
-      'time': '09:00',
-      'client': 'Thiago Mendonça',
-      'service': 'Corte Clássico',
-      'status': 'Finalizado',
-      'duration': '30 min',
-    },
-    {
-      'time': '09:30',
-      'client': 'Livre',
-      'service': '',
-      'status': 'Livre',
-      'duration': '30 min',
-    },
-    {
-      'time': '10:00',
-      'client': 'Lucas Oliveira',
-      'service': 'Corte + Barba',
-      'status': 'Em atendimento',
-      'duration': '60 min',
-    },
-    {
-      'time': '11:00',
-      'client': 'Marcos Silva',
-      'service': 'Sobrancelha',
-      'status': 'Agendado',
-      'duration': '15 min',
-    },
-    {
-      'time': '11:15',
-      'client': 'João Mendes',
-      'service': 'Platinado',
-      'status': 'Cancelado',
-      'duration': '90 min',
-    },
-  ];
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Agenda do Dia'),
+        backgroundColor: AppColors.background,
+        title: const Text('Agenda'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.filter_list),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.onPrimary,
-        onPressed: () {
-          // TODO: Open dialog to block time manually
-        },
-        child: const Icon(Icons.add),
       ),
       body: SafeArea(
         child: Column(
           children: [
-            // ── Horizontal Date Picker ──
+
+            // ── Seletor de Data Horizontal ──
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 14),
               decoration: const BoxDecoration(
                 color: AppColors.surfaceContainer,
                 border: Border(bottom: BorderSide(color: AppColors.outlineVariant)),
@@ -91,45 +63,47 @@ class _DailyAgendaScreenState extends State<DailyAgendaScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: AppSpacing.marginMobile),
                   scrollDirection: Axis.horizontal,
                   itemCount: 14,
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
+                  separatorBuilder: (_, __) => const SizedBox(width: 10),
                   itemBuilder: (context, index) {
-                    final date = DateTime.now().subtract(const Duration(days: 3)).add(Duration(days: index));
-                    final isSelected = date.day == _selectedDate.day && date.month == _selectedDate.month;
+                    final date = DateTime.now().subtract(const Duration(days: 2)).add(Duration(days: index));
+                    final isSelected = date.day == selectedDate.day &&
+                        date.month == selectedDate.month &&
+                        date.year == selectedDate.year;
                     final dayName = DateFormat('E', 'pt_BR').format(date).toUpperCase();
                     final dayNumber = DateFormat('dd').format(date);
 
                     return GestureDetector(
-                      onTap: () => setState(() => _selectedDate = date),
+                      onTap: () => ref.read(agendaDateProvider.notifier).state = date,
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
-                        width: 65,
+                        width: 62,
                         decoration: BoxDecoration(
                           color: isSelected ? AppColors.primary : Colors.transparent,
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(14),
                           border: Border.all(
                             color: isSelected ? AppColors.primaryContainer : AppColors.outlineVariant,
+                            width: isSelected ? 1.5 : 1,
                           ),
+                          boxShadow: isSelected
+                              ? [BoxShadow(color: AppColors.primary.withValues(alpha: 0.25), blurRadius: 8)]
+                              : [],
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              dayName,
+                            Text(dayName,
                               style: TextStyle(
                                 color: isSelected ? AppColors.onPrimary : AppColors.onSurfaceVariant,
-                                fontSize: 11,
+                                fontSize: 10,
                                 fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                              )),
                             const SizedBox(height: 4),
-                            Text(
-                              dayNumber,
+                            Text(dayNumber,
                               style: TextStyle(
                                 color: isSelected ? AppColors.onPrimary : AppColors.onSurface,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                              )),
                           ],
                         ),
                       ),
@@ -139,14 +113,60 @@ class _DailyAgendaScreenState extends State<DailyAgendaScreen> {
               ),
             ),
 
-            // ── Agenda Timeline ──
+            // ── Resumo do dia ──
+            agendaAsync.when(
+              loading: () => const SizedBox.shrink(),
+              error: (_, __) => const SizedBox.shrink(),
+              data: (appts) {
+                final total = appts.fold(0.0, (s, a) => s + a.price);
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  color: AppColors.surfaceContainerLow,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('${appts.length} agendamentos',
+                        style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13)),
+                      Text(
+                        'Total: R\$ ${total.toStringAsFixed(2).replaceAll('.', ',')}',
+                        style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 13),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+
+            // ── Lista / Timeline de Agendamentos ──
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(AppSpacing.marginMobile),
-                itemCount: _appointments.length,
-                itemBuilder: (context, index) {
-                  final appt = _appointments[index];
-                  return _buildTimelineItem(appt);
+              child: agendaAsync.when(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(color: AppColors.primary),
+                ),
+                error: (e, _) => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.wifi_off_rounded, color: AppColors.outline, size: 48),
+                      const SizedBox(height: 12),
+                      const Text('Erro ao carregar agenda', style: TextStyle(color: AppColors.onSurfaceVariant)),
+                    ],
+                  ),
+                ),
+                data: (appointments) {
+                  if (appointments.isEmpty) {
+                    return _buildEmptyDay(selectedDate);
+                  }
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(AppSpacing.marginMobile),
+                    itemCount: appointments.length,
+                    itemBuilder: (context, index) {
+                      return _TimelineItem(
+                        appointment: appointments[index],
+                        isLast: index == appointments.length - 1,
+                      );
+                    },
+                  );
                 },
               ),
             ),
@@ -156,191 +176,173 @@ class _DailyAgendaScreenState extends State<DailyAgendaScreen> {
     );
   }
 
-  Widget _buildTimelineItem(Map<String, dynamic> appt) {
-    final status = appt['status'] as String;
-    final isFree = status == 'Livre';
-    final isCancelled = status == 'Cancelado';
+  Widget _buildEmptyDay(DateTime date) {
+    final isToday = date.day == DateTime.now().day &&
+        date.month == DateTime.now().month &&
+        date.year == DateTime.now().year;
 
-    // Definir cores com base no status
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceContainerLow,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.event_available_outlined, color: AppColors.outline, size: 48),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            isToday ? 'Nenhum agendamento hoje' : 'Nenhum agendamento neste dia',
+            style: const TextStyle(color: AppColors.onSurface, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          const Text('Dia livre!', style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 14)),
+        ],
+      ),
+    );
+  }
+}
+
+// ── Item da Timeline ──
+class _TimelineItem extends StatelessWidget {
+  const _TimelineItem({required this.appointment, required this.isLast});
+  final AppointmentModel appointment;
+  final bool isLast;
+
+  @override
+  Widget build(BuildContext context) {
+    final timeStr = DateFormat('HH:mm').format(appointment.dateTime);
+    final isCanceled = appointment.status == 'canceled';
+
     Color statusColor;
-    switch (status) {
-      case 'Finalizado':
-        statusColor = Colors.grey;
-        break;
-      case 'Em atendimento':
+    String statusLabel;
+    switch (appointment.status) {
+      case 'confirmed':
         statusColor = Colors.green;
+        statusLabel = 'Confirmado';
         break;
-      case 'Agendado':
-        statusColor = AppColors.primary;
+      case 'completed':
+        statusColor = AppColors.outline;
+        statusLabel = 'Finalizado';
         break;
-      case 'Cancelado':
+      case 'canceled':
         statusColor = AppColors.error;
+        statusLabel = 'Cancelado';
         break;
       default:
-        statusColor = AppColors.outlineVariant;
+        statusColor = AppColors.primary;
+        statusLabel = 'Pendente';
     }
 
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // ── Coluna do Horário ──
+          // Horário
           SizedBox(
-            width: 60,
+            width: 56,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const SizedBox(height: 16),
-                Text(
-                  appt['time'],
+                const SizedBox(height: 14),
+                Text(timeStr,
                   style: TextStyle(
-                    color: isFree ? AppColors.outline : AppColors.onSurface,
-                    fontWeight: isFree ? FontWeight.normal : FontWeight.bold,
+                    color: isCanceled ? AppColors.outline : AppColors.onSurface,
+                    fontWeight: FontWeight.bold,
                     fontSize: 14,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  appt['duration'],
-                  style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 10),
-                ),
+                  )),
               ],
             ),
           ),
-          
           const SizedBox(width: 12),
 
-          // ── Linha do Tempo e Bolinha ──
+          // Linha do tempo + bolinha
           Column(
             children: [
               Container(
-                width: 16,
-                height: 16,
-                margin: const EdgeInsets.only(top: 18),
+                width: 14, height: 14,
+                margin: const EdgeInsets.only(top: 16),
                 decoration: BoxDecoration(
-                  color: isFree ? AppColors.background : statusColor,
+                  color: isCanceled ? AppColors.background : statusColor,
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: isFree ? AppColors.outlineVariant : statusColor,
+                  border: Border.all(color: statusColor, width: 2),
+                ),
+              ),
+              if (!isLast)
+                Expanded(
+                  child: Container(
                     width: 2,
+                    color: AppColors.outlineVariant.withValues(alpha: 0.5),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  width: 2,
-                  color: AppColors.outlineVariant.withValues(alpha: 0.5),
-                ),
-              ),
             ],
           ),
-          
           const SizedBox(width: 12),
 
-          // ── Card do Agendamento ──
+          // Card do agendamento
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 24.0, top: 8.0),
-              child: isFree
-                  ? _buildFreeSlot()
-                  : _buildAppointmentCard(appt, statusColor, isCancelled),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFreeSlot() {
-    return GestureDetector(
-      onTap: () {
-        // TODO: Action for free slot (e.g., manual booking)
-      },
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          color: AppColors.surfaceContainerLow,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.outlineVariant, style: BorderStyle.solid),
-        ),
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: const Text(
-          'Horário Livre',
-          style: TextStyle(color: AppColors.outline, fontStyle: FontStyle.italic),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAppointmentCard(Map<String, dynamic> appt, Color statusColor, bool isCancelled) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.surfaceContainer,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: isCancelled ? AppColors.error.withValues(alpha: 0.5) : AppColors.outlineVariant),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  appt['client'],
-                  style: TextStyle(
-                    color: isCancelled ? AppColors.outline : AppColors.onSurface,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    decoration: isCancelled ? TextDecoration.lineThrough : null,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: EdgeInsets.only(bottom: isLast ? 8 : 20, top: 6),
+              child: Container(
+                padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: statusColor.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  appt['status'],
-                  style: TextStyle(color: statusColor, fontSize: 10, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Icon(Icons.content_cut, color: AppColors.onSurfaceVariant, size: 14),
-              const SizedBox(width: 6),
-              Text(
-                appt['service'],
-                style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13),
-              ),
-            ],
-          ),
-          if (appt['status'] == 'Agendado' || appt['status'] == 'Em atendimento') ...[
-            const SizedBox(height: 12),
-            const Divider(color: AppColors.outlineVariant),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    minimumSize: Size.zero,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  color: AppColors.surfaceContainer,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: isCanceled
+                        ? AppColors.error.withValues(alpha: 0.4)
+                        : AppColors.outlineVariant,
                   ),
-                  child: const Text('Ações', style: TextStyle(fontSize: 12)),
                 ),
-              ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(appointment.clientName,
+                            style: TextStyle(
+                              color: isCanceled ? AppColors.outline : AppColors.onSurface,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              decoration: isCanceled ? TextDecoration.lineThrough : null,
+                            ),
+                            overflow: TextOverflow.ellipsis),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: statusColor.withValues(alpha: 0.12),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(statusLabel,
+                            style: TextStyle(color: statusColor, fontSize: 10, fontWeight: FontWeight.bold)),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(Icons.content_cut_rounded, color: AppColors.onSurfaceVariant, size: 13),
+                        const SizedBox(width: 6),
+                        Text(appointment.serviceName,
+                          style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13)),
+                        const Spacer(),
+                        Text(
+                          'R\$ ${appointment.price.toStringAsFixed(2).replaceAll('.', ',')}',
+                          style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ]
+          ),
         ],
       ),
     );
