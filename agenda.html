@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>BarberFlow Elite | Agenda do Dia</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#574500",
+                    "inverse-primary": "#735c00",
+                    "on-secondary-fixed-variant": "#77302d",
+                    "surface-tint": "#e9c349",
+                    "on-tertiary": "#303030",
+                    "secondary-container": "#7a322f",
+                    "on-primary": "#3c2f00",
+                    "on-surface": "#e5e2e1",
+                    "secondary-fixed": "#ffdad7",
+                    "inverse-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "primary-fixed": "#ffe088",
+                    "on-surface-variant": "#d0c5af",
+                    "tertiary-fixed": "#e5e2e1",
+                    "on-secondary": "#5a1a19",
+                    "on-primary-fixed": "#241a00",
+                    "background": "#131313",
+                    "surface-container-low": "#1c1b1b",
+                    "on-primary-container": "#554300",
+                    "on-tertiary-container": "#454544",
+                    "primary-fixed-dim": "#e9c349",
+                    "on-secondary-fixed": "#3d0506",
+                    "surface-container-lowest": "#0e0e0e",
+                    "primary": "#f2ca50",
+                    "outline": "#99907c",
+                    "secondary-fixed-dim": "#ffb3ad",
+                    "tertiary": "#d0cdcd",
+                    "surface-bright": "#393939",
+                    "primary-container": "#d4af37",
+                    "surface-container": "#201f1f",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "surface-variant": "#353534",
+                    "on-background": "#e5e2e1",
+                    "on-error-container": "#ffdad6",
+                    "surface-dim": "#131313",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary": "#ffb3ad",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "on-error": "#690005",
+                    "error-container": "#93000a",
+                    "outline-variant": "#4d4635",
+                    "surface-container-highest": "#353534",
+                    "surface": "#131313",
+                    "tertiary-container": "#b4b2b2",
+                    "on-secondary-container": "#ff9e97",
+                    "on-tertiary-fixed": "#1b1b1c",
+                    "error": "#ffb4ab"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "lg": "40px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            color: #D4AF37;
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #4d4635;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col p-md z-40 bg-surface-container dark:bg-surface-container w-64 border-r border-outline-variant">
+    <div class="flex flex-col gap-base mb-xl">
+        <div class="flex items-center gap-sm">
+            <div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-on-primary-container" style="color: #3c2f00">content_cut</span>
+            </div>
+            <div>
+                <h1 class="font-headline-md text-headline-md text-primary">BarberFlow Elite</h1>
+                <p class="font-label-sm text-label-sm text-on-surface-variant">Professional Suite</p>
+            </div>
+        </div>
+    </div>
+    <nav class="flex-grow flex flex-col gap-xs">
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="painel.html">
+            <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+            <span class="font-label-md text-label-md">Dashboard</span>
+        </a>
+        <!-- ACTIVE STATE: Agenda -->
+        <a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-lg p-sm border-l-2 border-primary scale-98 duration-150" href="agenda.html">
+            <span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+            <span class="font-label-md text-label-md">Agenda</span>
+        </a>
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="financas.html">
+            <span class="material-symbols-outlined" data-icon="payments">payments</span>
+            <span class="font-label-md text-label-md">Finanças</span>
+        </a>
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="fila.html">
+            <span class="material-symbols-outlined" data-icon="group">group</span>
+            <span class="font-label-md text-label-md">Fila Virtual</span>
+        </a>
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="home.html">
+            <span class="material-symbols-outlined" data-icon="store">store</span>
+            <span class="font-label-md text-label-md">Ir para a Loja</span>
+        </a>
+    </nav>
+    <button onclick="window.location.href='agendamento.html'" class="mt-md mb-xl w-full py-base bg-primary-container text-on-primary-container font-label-md rounded-lg flex items-center justify-center gap-xs hover:bg-primary-fixed-dim transition-all active:scale-95">
+        <span class="material-symbols-outlined text-on-primary-container" style="color: inherit">add_circle</span>
+        Book New Appointment
+    </button>
+    <div class="flex flex-col gap-xs pt-md border-t border-outline-variant">
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="onboarding.html">
+            <span class="material-symbols-outlined" data-icon="logout">logout</span>
+            <span class="font-label-md text-label-md">Sair</span>
+        </a>
+    </div>
+</aside>
+
+<!-- Main Content -->
+<main class="ml-64 min-h-screen px-margin-desktop py-lg">
+    <!-- Top App Bar Content -->
+    <header class="flex justify-between items-center mb-xl">
+        <div class="flex flex-col">
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">Agenda do Dia</h2>
+            <p class="font-body-md text-on-surface-variant">Sexta-feira, 24 de Maio</p>
+        </div>
+        <div class="flex items-center gap-md">
+            <div class="flex bg-surface-container rounded-lg p-xs border border-outline-variant">
+                <button class="px-md py-base bg-primary text-on-primary font-label-md rounded-md">Hoje</button>
+                <button class="px-md py-base text-on-surface-variant font-label-md hover:text-on-surface transition-colors">Próximos dias</button>
+            </div>
+            <div class="flex items-center gap-base">
+                <button class="p-base hover:bg-surface-variant rounded-full transition-all">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <img onclick="window.location.href='onboarding.html'" alt="Manager Profile" class="w-10 h-10 rounded-full border border-primary-container cursor-pointer" data-alt="Close-up portrait of a professional male barber with a well-groomed beard and stylish haircut. He is wearing a clean black apron in a high-end, softly lit barbershop setting. The background shows hints of gold fixtures and dark wood textures, reflecting a premium and sophisticated atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBVGNtW5gyCAW_NvZTw0-19Lz37tvJj5dC0wg5FXWRN_UeiFSF3TmfzOdzvImXz2WwcIehrVcS7KqoXHnKJ9kqTFLqU_Yk_K2sMctvu0V6t6sGisMGtNpjNFv8dl8hhbGwXk9LTDZRslmDBsC7UUTpqNdHPwuNTo2BsEqYCsCryBZv8jOpsrBtj-lf28svaKcFqy1CWl_zmPj08rlppwCzEO2S_N9mCKTgSAcFXGPz52O1xG6YLioY3ahjbjMFOndcEbl3u4hoa7hh"/>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filters -->
+    <section class="flex gap-base mb-lg overflow-x-auto pb-base">
+        <button class="px-md py-base bg-surface-container-high border border-primary text-primary font-label-md rounded-full flex items-center gap-xs">
+            Todos os Status
+        </button>
+        <button class="px-md py-base bg-surface-container text-on-surface-variant border border-outline-variant hover:border-outline font-label-md rounded-full flex items-center gap-xs">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+            Confirmado
+        </button>
+        <button class="px-md py-base bg-surface-container text-on-surface-variant border border-outline-variant hover:border-outline font-label-md rounded-full flex items-center gap-xs">
+            <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+            Em espera
+        </button>
+        <button class="px-md py-base bg-surface-container text-on-surface-variant border border-outline-variant hover:border-outline font-label-md rounded-full flex items-center gap-xs">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            Finalizado
+        </button>
+    </section>
+
+    <!-- Timeline Container -->
+    <section class="relative timeline-line">
+        <!-- Time Slot: 09:00 -->
+        <div class="relative flex gap-md mb-md z-10 group">
+            <div class="w-10 text-right pt-base">
+                <span class="font-label-sm text-outline">09:00</span>
+            </div>
+            <div class="flex-grow">
+                <!-- Appointment Card -->
+                <div class="bg-surface-container-low border border-outline-variant rounded-xl p-md flex justify-between items-center hover:border-primary-container transition-all group-hover:bg-surface-container-high shadow-sm">
+                    <div class="flex items-center gap-md">
+                        <img class="w-12 h-12 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Headshot of a modern gentleman with a sharp jawline and short, textured hair. The lighting is dramatic and moody, coming from the side to highlight facial features. The background is a dark, out-of-focus urban environment with subtle warm highlights, maintaining a high-end masculine aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2UC7tnTwDubFnvAhjZmqcsFGNhL21YLADyZrAwIEcm1VTtNSnCa4SzZKsash9CCSD6jVr87HMyUOwIDzm6mK8o9GhYcuz3Ar4IJhlbum1I0rXpE6gNqRAdG-pyynypeS2TRUNtwyvv7sRz2vyZBdYfu8tWF9MkPtBfTSTafs8XsKkY11Z1AYMwvTckQfqKNb_otFzXUWa1o-qCoKV5gfl7gGDNXH7XxhLqW_f8ju0ko44e7pk3OIKrBe-cJfcE7Ufe8nXWIkNF0sH"/>
+                        <div>
+                            <h4 class="font-headline-md text-[18px] text-on-surface">Ricardo Oliveira</h4>
+                            <div class="flex gap-base mt-xs">
+                                <span class="font-label-sm text-primary">Corte + Barba Premium</span>
+                                <span class="font-label-sm text-on-surface-variant">• R$ 120,00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-lg">
+                        <div class="flex flex-col items-end">
+                            <span class="px-base py-xs bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase tracking-widest rounded">Confirmado</span>
+                        </div>
+                        <button onclick="window.location.href='fila.html'" class="px-md py-base bg-primary text-on-primary font-label-md rounded-lg hover:bg-primary-fixed-dim active:scale-95 transition-all shadow-md">
+                            Iniciar Atendimento
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Time Slot: 10:00 -->
+        <div class="relative flex gap-md mb-md z-10 group">
+            <div class="w-10 text-right pt-base">
+                <span class="font-label-sm text-outline">10:00</span>
+            </div>
+            <div class="flex-grow">
+                <div class="bg-surface-container-low border border-outline-variant rounded-xl p-md flex justify-between items-center hover:border-primary-container transition-all group-hover:bg-surface-container-high border-l-4 border-l-primary">
+                    <div class="flex items-center gap-md">
+                        <img class="w-12 h-12 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Portrait of a young man with curly hair and a stubble beard, looking directly at the camera with a confident expression. The lighting is warm and natural, suggesting an afternoon sun through a window. The style is cinematic and high-contrast, perfectly fitting a modern grooming salon portfolio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqQ4T4N-AI1h6y0p7md4cW-nFCv6Pech6R_PsJPAQUt6ptdVWBOElww7YFki2oNgwH3ag7Cv7hAiBgaKCGrVnZXxbfs_9KoW8OgWj1ohUZlUjA14ND2dY_fDCPpRTkhYzvkGbAwIrv4BcRCsA0Klfi9eIiwAjBQLy7w5QsRZaTQHabrcpmOkHWWlv2yWRDnkXd3UEh9MfgjOuoDbAo_NBAo8Oe6kJlHQP7BGSU1JGPUSGV-erJFbxoJ-IAmzmvxDrXu4BAfMuzlwvo"/>
+                        <div>
+                            <h4 class="font-headline-md text-[18px] text-on-surface">André Santos</h4>
+                            <div class="flex gap-base mt-xs">
+                                <span class="font-label-sm text-primary">Corte Estilizado</span>
+                                <span class="font-label-sm text-on-surface-variant">• R$ 85,00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-lg">
+                        <div class="flex flex-col items-end">
+                            <span class="px-base py-xs bg-orange-500/10 text-orange-500 text-[10px] font-bold uppercase tracking-widest rounded">Em espera</span>
+                        </div>
+                        <button onclick="window.location.href='fila.html'" class="px-md py-base bg-primary text-on-primary font-label-md rounded-lg hover:bg-primary-fixed-dim active:scale-95 transition-all shadow-md">
+                            Iniciar Atendimento
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Time Slot: 11:00 (Empty/Available) -->
+        <div class="relative flex gap-md mb-md z-10 group">
+            <div class="w-10 text-right pt-base">
+                <span class="font-label-sm text-outline">11:00</span>
+            </div>
+            <div class="flex-grow">
+                <div onclick="window.location.href='agendamento.html'" class="border border-dashed border-outline-variant rounded-xl p-md flex justify-center items-center hover:bg-surface-container transition-colors cursor-pointer group">
+                    <span class="font-label-md text-outline group-hover:text-primary transition-colors flex items-center gap-xs">
+                        <span class="material-symbols-outlined text-outline group-hover:text-primary" style="font-size: 18px">add_circle</span>
+                        Horário Disponível
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Time Slot: 12:00 -->
+        <div class="relative flex gap-md mb-md z-10 group opacity-70">
+            <div class="w-10 text-right pt-base">
+                <span class="font-label-sm text-outline">12:00</span>
+            </div>
+            <div class="flex-grow">
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex justify-between items-center">
+                    <div class="flex items-center gap-md">
+                        <div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center">
+                            <span class="material-symbols-outlined">person</span>
+                        </div>
+                        <div>
+                            <h4 class="font-headline-md text-[18px] text-on-surface">Lucas Mendes</h4>
+                            <div class="flex gap-base mt-xs">
+                                <span class="font-label-sm text-on-surface-variant">Barba Tradicional</span>
+                                <span class="font-label-sm text-on-surface-variant">• R$ 45,00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-lg">
+                        <span class="px-base py-xs bg-green-500/10 text-green-500 text-[10px] font-bold uppercase tracking-widest rounded">Finalizado</span>
+                        <button class="px-md py-base bg-surface-variant text-on-surface-variant font-label-md rounded-lg cursor-not-allowed">
+                            Atendido
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Time Slot: 13:00 to 20:00 Simplified -->
+        <div class="relative flex gap-md mb-md z-10">
+            <div class="w-10 text-right pt-base">
+                <span class="font-label-sm text-outline">13:00</span>
+            </div>
+            <div class="flex-grow border-b border-outline-variant/30 py-base"></div>
+        </div>
+        <div class="relative flex gap-md mb-md z-10">
+            <div class="w-10 text-right pt-base">
+                <span class="font-label-sm text-outline">14:00</span>
+            </div>
+            <div class="flex-grow border-b border-outline-variant/30 py-base"></div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="ml-64 w-auto py-md px-margin-desktop flex justify-between items-center bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant">
+    <span class="font-label-md text-label-md text-on-surface">BarberFlow Elite</span>
+    <span class="font-label-sm text-label-sm text-outline">© 2024 BarberFlow Elite. All rights reserved.</span>
+    <div class="flex gap-md">
+        <a class="font-label-sm text-outline hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a>
+        <a class="font-label-sm text-outline hover:text-primary-fixed transition-colors" href="#">Terms of Service</a>
+    </div>
+</footer>
+
+<script>
+    // Micro-interactions for buttons
+    document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('mousedown', () => {
+            button.classList.add('scale-95');
+        });
+        button.addEventListener('mouseup', () => {
+            button.classList.remove('scale-95');
+        });
+        button.addEventListener('mouseleave', () => {
+            button.classList.remove('scale-95');
+        });
+    });
+
+    // Simple filter logic simulation
+    const filterButtons = document.querySelectorAll('section.flex button');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => {
+                b.classList.remove('border-primary', 'text-primary');
+                b.classList.add('border-outline-variant', 'text-on-surface-variant');
+            });
+            btn.classList.add('border-primary', 'text-primary');
+            btn.classList.remove('border-outline-variant', 'text-on-surface-variant');
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BarberFlow Elite | Agendamento — Escolha de Horário</title>
+<meta name="description" content="Selecione a data e horário do seu atendimento no BarberFlow Elite."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "tertiary-fixed": "#e5e2e1",
+          "surface-container-low": "#1c1b1b",
+          "surface-bright": "#393939",
+          "on-tertiary-fixed": "#1b1b1c",
+          "secondary": "#ffb3ad",
+          "primary-fixed": "#ffe088",
+          "surface-tint": "#e9c349",
+          "surface-dim": "#131313",
+          "on-background": "#e5e2e1",
+          "error": "#ffb4ab",
+          "tertiary": "#d0cdcd",
+          "on-surface-variant": "#d0c5af",
+          "on-surface": "#e5e2e1",
+          "on-secondary-fixed": "#3d0506",
+          "on-primary-fixed": "#241a00",
+          "inverse-on-surface": "#313030",
+          "on-primary": "#3c2f00",
+          "primary-container": "#d4af37",
+          "tertiary-container": "#b4b2b2",
+          "surface-container-high": "#2a2a2a",
+          "outline": "#99907c",
+          "primary": "#f2ca50",
+          "primary-fixed-dim": "#e9c349",
+          "secondary-container": "#7a322f",
+          "on-secondary-fixed-variant": "#77302d",
+          "secondary-fixed": "#ffdad7",
+          "on-secondary": "#5a1a19",
+          "inverse-primary": "#735c00",
+          "surface-container-lowest": "#0e0e0e",
+          "on-error-container": "#ffdad6",
+          "background": "#131313",
+          "surface-container-highest": "#353534",
+          "on-error": "#690005",
+          "inverse-surface": "#e5e2e1",
+          "surface-variant": "#353534",
+          "on-tertiary": "#303030",
+          "tertiary-fixed-dim": "#c8c6c5",
+          "outline-variant": "#4d4635",
+          "surface": "#131313",
+          "on-primary-fixed-variant": "#574500",
+          "secondary-fixed-dim": "#ffb3ad",
+          "on-tertiary-fixed-variant": "#474746",
+          "surface-container": "#201f1f",
+          "on-secondary-container": "#ff9e97",
+          "error-container": "#93000a",
+          "on-primary-container": "#554300",
+          "on-tertiary-container": "#454544"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "lg": "40px",
+          "xl": "64px",
+          "md": "24px",
+          "margin-desktop": "48px",
+          "base": "8px",
+          "margin-mobile": "16px",
+          "sm": "12px",
+          "gutter": "24px",
+          "xs": "4px"
+        },
+        "fontFamily": {
+          "headline-lg-mobile": ["Playfair Display"],
+          "label-sm": ["Inter"],
+          "headline-lg": ["Playfair Display"],
+          "body-lg": ["Inter"],
+          "label-md": ["Inter"],
+          "body-md": ["Inter"],
+          "headline-md": ["Playfair Display"],
+          "headline-xl": ["Playfair Display"]
+        },
+        "fontSize": {
+          "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+          "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+  body { background-color: #131313; color: #e5e2e1; }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: #f2ca50;
+  }
+
+  /* Calendar */
+  .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .time-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 12px; }
+
+  /* Day cell transitions */
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    font-size: 14px;
+  }
+  .cal-day:hover:not(.cal-disabled):not(.cal-selected) {
+    background: #2a2a2a;
+    border-color: rgba(242, 202, 80, 0.2);
+  }
+  .cal-day.cal-disabled {
+    color: rgba(153, 144, 124, 0.3);
+    cursor: default;
+  }
+  .cal-day.cal-selected {
+    background: #f2ca50;
+    color: #3c2f00;
+    font-weight: 700;
+    border-color: #f2ca50;
+    box-shadow: 0 8px 24px rgba(242, 202, 80, 0.35);
+    transform: scale(1.1);
+    z-index: 10;
+    position: relative;
+  }
+  .cal-day.cal-today:not(.cal-selected) {
+    border-color: rgba(242, 202, 80, 0.4);
+    color: #f2ca50;
+  }
+
+  /* Time slot button */
+  .time-slot {
+    padding: 12px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(242, 202, 80, 0.3);
+    color: #f2ca50;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background: transparent;
+    cursor: pointer;
+  }
+  .time-slot:hover:not(:disabled) {
+    background: #f2ca50;
+    color: #3c2f00;
+    border-color: #f2ca50;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(242, 202, 80, 0.3);
+  }
+  .time-slot.selected {
+    background: #f2ca50;
+    color: #3c2f00;
+    font-weight: 700;
+    border-color: #f2ca50;
+    box-shadow: 0 8px 24px rgba(242, 202, 80, 0.4);
+    transform: scale(1.05);
+    outline: 3px solid rgba(242, 202, 80, 0.3);
+    outline-offset: 2px;
+  }
+  .time-slot:disabled {
+    border-color: rgba(77, 70, 53, 0.4);
+    color: rgba(153, 144, 124, 0.3);
+    cursor: not-allowed;
+    background: #1c1b1b;
+  }
+
+  /* Stepper */
+  .step-done { background: #d4af37; color: #3c2f00; }
+  .step-active { background: #f2ca50; color: #3c2f00; box-shadow: 0 0 0 4px rgba(242, 202, 80, 0.2); }
+  .step-pending { background: #2a2a2a; color: #99907c; border: 1px solid #4d4635; }
+
+  /* Summary card glow */
+  .summary-glow {
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.08), 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Mobile nav */
+  .mobile-menu { display: none; }
+  .mobile-menu.open { display: flex; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up { animation: fadeUp 0.4s ease forwards; }
+</style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- ═══════════════════════════════════════════ -->
+<!--                TOP NAV BAR                  -->
+<!-- ═══════════════════════════════════════════ -->
+<header class="bg-surface border-b border-outline-variant fixed top-0 w-full z-50">
+  <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-7xl mx-auto">
+    <a class="font-headline-md text-headline-md font-bold text-primary no-underline tracking-tight" href="home.html">BarberFlow Elite</a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="servicos.html">Serviços</a>
+      <a class="text-primary font-bold border-b-2 border-primary pb-1" href="agendamento.html">Agendamento</a>
+      <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="perfil.html">Equipe</a>
+      <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="home.html">Unidades</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button class="p-2 hover:bg-surface-container-high rounded-full transition-all" onclick="window.location.href='notificacoes.html'" title="Notificações">
+        <span class="material-symbols-outlined">notifications</span>
+      </button>
+      <button class="p-2 hover:bg-surface-container-high rounded-full transition-all" onclick="window.location.href='perfil.html'" title="Meu Perfil">
+        <span class="material-symbols-outlined">person</span>
+      </button>
+      <!-- Mobile menu toggle -->
+      <button class="md:hidden p-2 hover:bg-surface-container-high rounded-full transition-all" onclick="toggleMobileMenu()">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Nav -->
+  <div id="mobile-menu" class="mobile-menu flex-col bg-surface-container border-t border-outline-variant px-margin-mobile py-md gap-3 md:hidden">
+    <a class="text-on-surface-variant py-2 font-medium" href="servicos.html">Serviços</a>
+    <a class="text-primary font-bold py-2" href="agendamento.html">Agendamento</a>
+    <a class="text-on-surface-variant py-2 font-medium" href="perfil.html">Equipe</a>
+    <a class="text-on-surface-variant py-2 font-medium" href="home.html">Unidades</a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--                   MAIN                      -->
+<!-- ═══════════════════════════════════════════ -->
+<main class="pt-28 pb-xl px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto min-h-screen">
+
+  <!-- ── Stepper ── -->
+  <div class="mb-12 flex justify-between items-start max-w-xl mx-auto relative">
+    <!-- Connector line -->
+    <div class="absolute top-4 left-0 w-full h-0.5 bg-outline-variant -z-10"></div>
+
+    <!-- Step 1 -->
+    <a href="servicos.html" class="flex flex-col items-center gap-2 bg-surface px-2 group">
+      <div class="step-done w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-transform group-hover:scale-110">
+        <span class="material-symbols-outlined text-[16px]" style="color:#3c2f00">check</span>
+      </div>
+      <span class="text-xs font-label-sm text-on-surface-variant uppercase tracking-wider hidden sm:block">Serviço</span>
+    </a>
+
+    <!-- Step 2 -->
+    <a href="agendamento.html" class="flex flex-col items-center gap-2 bg-surface px-2 group">
+      <div class="step-done w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-transform group-hover:scale-110">
+        <span class="material-symbols-outlined text-[16px]" style="color:#3c2f00">check</span>
+      </div>
+      <span class="text-xs font-label-sm text-on-surface-variant uppercase tracking-wider hidden sm:block">Profissional</span>
+    </a>
+
+    <!-- Step 3 — ACTIVE -->
+    <div class="flex flex-col items-center gap-2 bg-surface px-2">
+      <div class="step-active w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all">3</div>
+      <span class="text-xs font-label-sm text-primary font-bold uppercase tracking-wider hidden sm:block">Horário</span>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="flex flex-col items-center gap-2 bg-surface px-2">
+      <div class="step-pending w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">4</div>
+      <span class="text-xs font-label-sm text-outline uppercase tracking-wider hidden sm:block">Confirmar</span>
+    </div>
+  </div>
+
+  <!-- ── Page Heading ── -->
+  <div class="mb-xl text-center md:text-left animate-fade-up">
+    <h1 class="font-headline-xl text-headline-xl mb-4 text-on-surface">Finalize seu Agendamento</h1>
+    <p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl">
+      Selecione a data e o horário que melhor se adaptam à sua rotina para uma experiência de cuidado impecável.
+    </p>
+  </div>
+
+  <!-- ── Main Grid ── -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+
+    <!-- ─── Calendar ─── -->
+    <section class="lg:col-span-7 bg-surface-container p-md md:p-lg rounded-xl border border-outline-variant animate-fade-up">
+      <div class="flex justify-between items-center mb-lg">
+        <h2 class="font-headline-md text-headline-md text-on-surface" id="cal-month-label">Novembro 2024</h2>
+        <div class="flex gap-2">
+          <button
+            class="p-2 hover:bg-surface-container-high rounded-full border border-outline-variant transition-all"
+            onclick="changeMonth(-1)" id="btn-prev-month"
+          >
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <button
+            class="p-2 hover:bg-surface-container-high rounded-full border border-outline-variant transition-all"
+            onclick="changeMonth(1)"
+          >
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Day headers -->
+      <div class="calendar-grid mb-2">
+        <div class="text-center font-label-md text-label-md text-primary/70 font-bold py-2">DOM</div>
+        <div class="text-center font-label-md text-label-md text-primary/70 font-bold py-2">SEG</div>
+        <div class="text-center font-label-md text-label-md text-primary/70 font-bold py-2">TER</div>
+        <div class="text-center font-label-md text-label-md text-primary/70 font-bold py-2">QUA</div>
+        <div class="text-center font-label-md text-label-md text-primary/70 font-bold py-2">QUI</div>
+        <div class="text-center font-label-md text-label-md text-primary/70 font-bold py-2">SEX</div>
+        <div class="text-center font-label-md text-label-md text-primary/70 font-bold py-2">SÁB</div>
+      </div>
+
+      <!-- Day cells — rendered by JS -->
+      <div class="calendar-grid" id="cal-days"></div>
+
+      <!-- Legend -->
+      <div class="flex items-center gap-lg mt-md pt-md border-t border-outline-variant/40">
+        <div class="flex items-center gap-2 text-[11px] text-on-surface-variant">
+          <span class="w-3 h-3 rounded-sm bg-primary inline-block"></span> Selecionado
+        </div>
+        <div class="flex items-center gap-2 text-[11px] text-on-surface-variant">
+          <span class="w-3 h-3 rounded-sm border border-primary/50 inline-block"></span> Disponível
+        </div>
+        <div class="flex items-center gap-2 text-[11px] text-on-surface-variant">
+          <span class="w-3 h-3 rounded-sm bg-surface-container-high inline-block opacity-40"></span> Indisponível
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Time Slots ─── -->
+    <section class="lg:col-span-5 flex flex-col gap-gutter animate-fade-up">
+      <div class="bg-surface-container p-md md:p-lg rounded-xl border border-outline-variant flex-1">
+        <h3 class="font-headline-md text-headline-md mb-lg flex items-center gap-2 text-on-surface">
+          <span class="material-symbols-outlined">schedule</span>
+          Horários Disponíveis
+        </h3>
+        <div class="space-y-md">
+
+          <!-- Manhã -->
+          <div>
+            <p class="font-label-md text-label-md text-primary font-bold uppercase mb-4 tracking-widest flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">light_mode</span> Manhã
+            </p>
+            <div class="time-grid">
+              <button class="time-slot" onclick="selectTime(this, '09:00')">09:00</button>
+              <button class="time-slot" disabled>09:45</button>
+              <button class="time-slot" onclick="selectTime(this, '10:30')">10:30</button>
+              <button class="time-slot" onclick="selectTime(this, '11:15')">11:15</button>
+            </div>
+          </div>
+
+          <!-- Tarde -->
+          <div>
+            <p class="font-label-md text-label-md text-primary font-bold uppercase mb-4 mt-2 tracking-widest flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">wb_sunny</span> Tarde
+            </p>
+            <div class="time-grid">
+              <button class="time-slot selected" onclick="selectTime(this, '14:00')">14:00</button>
+              <button class="time-slot" onclick="selectTime(this, '14:45')">14:45</button>
+              <button class="time-slot" onclick="selectTime(this, '15:30')">15:30</button>
+              <button class="time-slot" disabled>16:15</button>
+            </div>
+          </div>
+
+          <!-- Noite -->
+          <div>
+            <p class="font-label-md text-label-md text-primary font-bold uppercase mb-4 mt-2 tracking-widest flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">dark_mode</span> Noite
+            </p>
+            <div class="time-grid">
+              <button class="time-slot" onclick="selectTime(this, '18:00')">18:00</button>
+              <button class="time-slot" onclick="selectTime(this, '18:45')">18:45</button>
+              <button class="time-slot" disabled>19:30</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Summary Strip ─── -->
+    <section class="lg:col-span-12 animate-fade-up">
+      <div class="bg-surface-container-highest p-8 rounded-2xl border border-primary/25 summary-glow relative overflow-hidden">
+        <!-- Ambient glow -->
+        <div class="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full -mr-24 -mt-24 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 bg-primary/3 rounded-full -ml-16 -mb-16 blur-2xl pointer-events-none"></div>
+
+        <div class="flex flex-col lg:flex-row justify-between items-center gap-10 relative z-10">
+
+          <!-- Left: Barber + Info -->
+          <div class="flex flex-col md:flex-row items-center gap-8 w-full lg:w-auto">
+            <div class="relative flex-shrink-0">
+              <div class="w-24 h-24 rounded-2xl border-2 border-primary/50 overflow-hidden rotate-3 shadow-2xl transform transition-transform hover:rotate-0 cursor-pointer">
+                <img
+                  alt="Arthur M. — Barbeiro"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX5BAJigk2yeMxcfVd-U282vWczPCJ42mpdcK3q5bhofa72EqD74IqGyQ1hOTauMhMMzpqTtsNVjKBY9jvd09BzOLuOOmJHtVnuiyqUAPw72_z_Mair6zdii-ct3Du2zL-Addiwp2r62_ke4qbXIVJhXkPBJr61_9NtDJhiJL8KRzZrCt56jRdXG2NJyZa3nGccdmSmOGD_7Zu6P4NhFJrCRKtoGJ6KohSPoPPh3rcwGj4mCe9l9KqXv_DEo3FnN5V4BeO4cwYlDuN"
+                />
+              </div>
+              <div class="absolute -bottom-2 -right-2 bg-primary text-on-primary text-[9px] px-2 py-1 rounded-full font-bold uppercase tracking-tight">Elite</div>
+            </div>
+
+            <div class="text-center md:text-left">
+              <p class="text-primary font-bold uppercase tracking-[0.2em] text-xs mb-2">Resumo Final</p>
+              <h4 class="font-headline-md text-[26px] mb-4 text-on-surface">
+                Corte Clássico &amp; Barba
+                <span class="text-primary/60 font-light text-lg"> com Arthur M.</span>
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-primary/20 flex-shrink-0">
+                    <span class="material-symbols-outlined text-xl">calendar_today</span>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-outline uppercase font-bold">Data</p>
+                    <p class="font-bold text-on-surface" id="summary-date">06 Nov, 2024</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-primary/20 flex-shrink-0">
+                    <span class="material-symbols-outlined text-xl">schedule</span>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-outline uppercase font-bold">Horário</p>
+                    <p class="font-bold text-on-surface" id="summary-time">14:00 — 15:00</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-primary/20 flex-shrink-0">
+                    <span class="material-symbols-outlined text-xl">timer</span>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-outline uppercase font-bold">Duração</p>
+                    <p class="font-bold text-on-surface">60 min</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Price + CTA -->
+          <div class="w-full lg:w-auto flex flex-col md:flex-row lg:flex-col items-center lg:items-end gap-6 bg-surface-container/50 p-6 rounded-2xl border border-outline-variant/30 backdrop-blur-sm">
+            <div class="text-center lg:text-right">
+              <p class="text-outline text-xs uppercase font-bold tracking-widest mb-1">Total do Investimento</p>
+              <p class="text-4xl font-headline-xl text-primary">R$ 145,00</p>
+              <p class="text-on-surface-variant text-xs mt-1">Corte R$70 + Barba R$75</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <button
+                class="px-10 py-4 bg-primary text-on-primary font-bold rounded-xl hover:brightness-110 transition-all active:scale-95 shadow-2xl shadow-primary/40 uppercase tracking-wider"
+                onclick="finalizarAgendamento()"
+                id="btn-finalizar"
+              >
+                Finalizar Agendamento
+              </button>
+              <button
+                class="px-8 py-4 border border-outline-variant text-on-surface-variant hover:bg-error/10 hover:text-error hover:border-error transition-all font-bold rounded-xl uppercase tracking-wider"
+                onclick="window.location.href='home.html'"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--                  FOOTER                     -->
+<!-- ═══════════════════════════════════════════ -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant mt-xl">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-lg max-w-7xl mx-auto gap-8">
+    <div class="flex flex-col items-center md:items-start gap-2">
+      <a class="font-headline-md text-primary font-bold tracking-tight" href="home.html">BarberFlow Elite</a>
+      <p class="text-on-surface-variant font-label-sm text-label-sm">© 2025 BarberFlow Elite. Todos os direitos reservados.</p>
+    </div>
+    <div class="flex gap-8 flex-wrap justify-center">
+      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm" href="#">Contato</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm" href="#">Privacidade</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm" href="#">Termos de Uso</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm" href="home.html">Unidades</a>
+    </div>
+    <div class="flex gap-4">
+      <button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant hover:border-primary transition-all">
+        <span class="material-symbols-outlined">public</span>
+      </button>
+      <button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant hover:border-primary transition-all">
+        <span class="material-symbols-outlined">mail</span>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Calendar Engine ──
+  const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const MONTHS_SHORT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+  let currentYear  = 2024;
+  let currentMonth = 10; // 0-indexed: October = 10 → November
+  let selectedDay  = 6;
+  let selectedTime = '14:00';
+
+  function renderCalendar() {
+    const label = document.getElementById('cal-month-label');
+    label.textContent = `${MONTHS[currentMonth]} ${currentYear}`;
+
+    const container = document.getElementById('cal-days');
+    container.innerHTML = '';
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay(); // 0=Sun
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const today = new Date();
+
+    // Blank cells for padding
+    for (let i = 0; i < firstDay; i++) {
+      const blank = document.createElement('div');
+      blank.className = 'cal-day cal-disabled';
+      const prevDays = new Date(currentYear, currentMonth, 0).getDate();
+      blank.textContent = prevDays - firstDay + i + 1;
+      container.appendChild(blank);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      const date = new Date(currentYear, currentMonth, d);
+      const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const isSunday = date.getDay() === 0;
+
+      if (isPast || isSunday) {
+        cell.className = 'cal-day cal-disabled';
+        cell.textContent = d;
+      } else {
+        cell.className = 'cal-day border border-outline-variant/30';
+        cell.textContent = d;
+        if (
+          d === selectedDay &&
+          currentMonth === 10 &&
+          currentYear === 2024
+        ) {
+          cell.classList.add('cal-selected');
+        }
+        cell.addEventListener('click', () => selectDay(d, cell));
+      }
+      container.appendChild(cell);
+    }
+  }
+
+  function selectDay(day, el) {
+    document.querySelectorAll('.cal-day.cal-selected').forEach(c => {
+      c.classList.remove('cal-selected');
+    });
+    el.classList.add('cal-selected');
+    selectedDay = day;
+
+    const dateStr = `${String(day).padStart(2,'0')} ${MONTHS_SHORT[currentMonth]}, ${currentYear}`;
+    document.getElementById('summary-date').textContent = dateStr;
+  }
+
+  function changeMonth(delta) {
+    currentMonth += delta;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
+    renderCalendar();
+  }
+
+  // ── Time Slot Logic ──
+  function selectTime(btn, time) {
+    document.querySelectorAll('.time-slot.selected').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedTime = time;
+    // Compute end time (+60 min)
+    const [h, m] = time.split(':').map(Number);
+    const endH = h + 1;
+    const endStr = `${String(endH).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+    document.getElementById('summary-time').textContent = `${time} — ${endStr}`;
+  }
+
+  // ── Finalize ──
+  function finalizarAgendamento() {
+    const btn = document.getElementById('btn-finalizar');
+    btn.disabled = true;
+    btn.innerHTML = `<span class="flex items-center gap-2 justify-center">
+      <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      Processando...
+    </span>`;
+    setTimeout(() => {
+      window.location.href = 'confirmacao.html';
+    }, 1600);
+  }
+
+  // ── Mobile menu ──
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('open');
+  }
+
+  // ── Init ──
+  renderCalendar();
+</script>
+</body>
+</html>

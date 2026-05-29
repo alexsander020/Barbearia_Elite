@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BarberFlow Elite | Mensagens de Broadcast</title>
+<meta name="description" content="Envie comunicados em massa para clientes e profissionais do BarberFlow Elite."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-variant": "#353534",
+          "surface-bright": "#393939",
+          "outline-variant": "#4d4635",
+          "on-secondary": "#5a1a19",
+          "surface-tint": "#e9c349",
+          "primary-fixed-dim": "#e9c349",
+          "surface": "#131313",
+          "surface-container-low": "#1c1b1b",
+          "secondary-fixed-dim": "#ffb3ad",
+          "on-error-container": "#ffdad6",
+          "inverse-surface": "#e5e2e1",
+          "background": "#131313",
+          "on-secondary-fixed": "#3d0506",
+          "secondary-container": "#7a322f",
+          "tertiary": "#d0cdcd",
+          "on-primary": "#3c2f00",
+          "surface-container-highest": "#353534",
+          "on-tertiary-container": "#454544",
+          "primary-fixed": "#ffe088",
+          "on-surface": "#e5e2e1",
+          "inverse-primary": "#735c00",
+          "surface-container-lowest": "#0e0e0e",
+          "secondary-fixed": "#ffdad7",
+          "inverse-on-surface": "#313030",
+          "error": "#ffb4ab",
+          "surface-dim": "#131313",
+          "primary": "#f2ca50",
+          "on-secondary-fixed-variant": "#77302d",
+          "on-tertiary": "#303030",
+          "on-background": "#e5e2e1",
+          "on-primary-container": "#554300",
+          "on-primary-fixed": "#241a00",
+          "surface-container": "#201f1f",
+          "on-primary-fixed-variant": "#574500",
+          "surface-container-high": "#2a2a2a",
+          "on-surface-variant": "#d0c5af",
+          "on-error": "#690005",
+          "secondary": "#ffb3ad",
+          "on-tertiary-fixed": "#1b1b1c",
+          "on-secondary-container": "#ff9e97",
+          "primary-container": "#d4af37",
+          "on-tertiary-fixed-variant": "#474746",
+          "tertiary-fixed-dim": "#c8c6c5",
+          "error-container": "#93000a",
+          "tertiary-fixed": "#e5e2e1",
+          "outline": "#99907c",
+          "tertiary-container": "#b4b2b2"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "md": "24px",
+          "margin-desktop": "48px",
+          "gutter": "24px",
+          "sm": "12px",
+          "base": "8px",
+          "lg": "40px",
+          "margin-mobile": "16px",
+          "xl": "64px",
+          "xs": "4px"
+        },
+        "fontFamily": {
+          "headline-md": ["Playfair Display"],
+          "body-lg": ["Inter"],
+          "headline-lg": ["Playfair Display"],
+          "label-sm": ["Inter"],
+          "body-md": ["Inter"],
+          "label-md": ["Inter"],
+          "headline-xl": ["Playfair Display"],
+          "headline-lg-mobile": ["Playfair Display"]
+        },
+        "fontSize": {
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+          "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+          "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+  body { background-color: #131313; color: #e5e2e1; }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: #f2ca50;
+    vertical-align: middle;
+  }
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: #4d4635; border-radius: 10px; }
+  
+  /* Form Elements Customization */
+  input[type="radio"]:checked + div {
+    border-color: #d4af37;
+    background-color: rgba(212, 175, 55, 0.1);
+  }
+  input[type="checkbox"] {
+    accent-color: #d4af37;
+  }
+  
+  /* Input focus ring */
+  .focus-ring:focus-within {
+    box-shadow: 0 0 0 2px rgba(242, 202, 80, 0.3);
+    border-color: #f2ca50;
+  }
+
+  .editor-btn:hover .material-symbols-outlined { color: #f2ca50; }
+</style>
+</head>
+<body class="font-body-md text-on-surface overflow-hidden">
+
+<!-- ═══════════════════════════════════════════ -->
+<!--                SIDEBAR                     -->
+<!-- ═══════════════════════════════════════════ -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col py-md z-40 bg-surface-container w-64 border-r border-outline-variant">
+  <div class="mb-lg px-md">
+    <h1 class="font-headline-md text-headline-md text-primary tracking-tight">BarberFlow Elite</h1>
+    <p class="font-label-md text-label-md text-on-surface-variant opacity-70">Admin Console</p>
+  </div>
+
+  <nav class="flex-1 space-y-1 overflow-y-auto custom-scrollbar px-sm">
+    <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="admin.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class="font-label-md text-label-md">Dashboard</span>
+    </a>
+    <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="agenda.html">
+      <span class="material-symbols-outlined">calendar_month</span>
+      <span class="font-label-md text-label-md">Agenda</span>
+    </a>
+    <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="usuarios.html">
+      <span class="material-symbols-outlined">group</span>
+      <span class="font-label-md text-label-md">Clientes</span>
+    </a>
+    <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="painel.html">
+      <span class="material-symbols-outlined">content_cut</span>
+      <span class="font-label-md text-label-md">Profissionais</span>
+    </a>
+    <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="relatorios.html">
+      <span class="material-symbols-outlined">bar_chart</span>
+      <span class="font-label-md text-label-md">Relatórios</span>
+    </a>
+    <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="notificacoes.html">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="font-label-md text-label-md">Notificações</span>
+    </a>
+    <!-- ACTIVE: Broadcast (sub-item or highlighted) -->
+    <a class="flex items-center gap-sm bg-surface-variant text-primary rounded-lg p-sm border-l-2 border-primary ml-2 mt-1" href="broadcast.html">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1; font-size: 20px;">campaign</span>
+      <span class="font-label-md text-label-md font-bold">Broadcast</span>
+    </a>
+  </nav>
+
+  <div class="mt-auto pt-md px-sm space-y-1 border-t border-outline-variant/40">
+    <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="servicos.html">
+      <span class="material-symbols-outlined">settings</span>
+      <span class="font-label-md text-label-md">Configurações</span>
+    </a>
+    <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all rounded-lg" href="home.html">
+      <span class="material-symbols-outlined">store</span>
+      <span class="font-label-md text-label-md">Ir para a Loja</span>
+    </a>
+    
+    <div class="mt-2 pt-2 border-t border-outline-variant/30 flex items-center gap-3 px-2 py-2 cursor-pointer hover:bg-surface-variant rounded-lg transition-colors" onclick="window.location.href='onboarding.html'">
+      <img alt="Admin Avatar" class="w-10 h-10 rounded-full border border-primary/50 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDItTTA8O-zqp3tRmX9tgXRLLndUv_rNvufqKjxL19jijOAQanZmqhvniapL_MUxDf7mIsM5yv5cr0eMWVmJFAKpoUjOneSfVBhR5kw4bRg2X0uRItLeb2-J3ZsvzRPrOI66U9C59I_Q9WShALqxHJbfLY1nmbDTbp8xshh4oqG_kcg4oMBjlSm48jBGlcHRLxspoII3--DusdidgnWiyA7KU4wZ8lnB8yeB1J3kuRdoE1v8UACL4034tP00cIWfY3s40rrrIzElXJJ"/>
+      <div class="overflow-hidden">
+        <p class="font-label-md text-sm text-on-surface truncate">Admin Master</p>
+        <p class="text-[10px] text-on-surface-variant truncate">Sair do sistema</p>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--                 MAIN                       -->
+<!-- ═══════════════════════════════════════════ -->
+<main class="ml-64 h-screen flex flex-col overflow-hidden bg-background">
+
+  <!-- Top App Bar -->
+  <header class="flex justify-between items-center w-full px-margin-desktop py-sm z-30 bg-surface border-b border-outline-variant flex-shrink-0">
+    <div class="flex items-center gap-md">
+      <button class="material-symbols-outlined text-outline hover:text-primary transition-colors mr-2" onclick="window.location.href='notificacoes.html'" title="Voltar para Notificações">arrow_back</button>
+      <h2 class="font-headline-md text-headline-md font-bold text-primary">Gestão de Broadcast</h2>
+    </div>
+    <div class="flex items-center gap-lg">
+      <div class="relative hidden lg:block group">
+        <span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+        <input class="bg-surface-container border border-outline-variant rounded-full pl-xl pr-md py-xs text-body-md focus:ring-1 focus:ring-primary outline-none transition-all w-64 group-focus-within:w-80" placeholder="Buscar campanhas..." type="text"/>
+      </div>
+      <div class="flex items-center gap-md">
+        <button class="material-symbols-outlined hover:text-primary transition-all hover:scale-105" title="Ajuda">help</button>
+        <button class="material-symbols-outlined hover:text-primary transition-all hover:scale-105" title="Minha Conta" onclick="window.location.href='perfil.html'">account_circle</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Scrollable Content -->
+  <div class="flex-1 overflow-y-auto custom-scrollbar p-margin-desktop">
+    
+    <!-- Header Section -->
+    <div class="mb-lg max-w-6xl mx-auto">
+      <h3 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Mensagens de Broadcast</h3>
+      <p class="text-on-surface-variant max-w-2xl font-body-md">
+        Envie comunicados em massa para seus clientes e profissionais de forma rápida, segmentada e eficiente.
+      </p>
+    </div>
+
+    <!-- Bento Layout Grid -->
+    <div class="grid grid-cols-12 gap-gutter max-w-6xl mx-auto pb-xl">
+      
+      <!-- ─── Message Composer (Left Side) ─── -->
+      <div class="col-span-12 lg:col-span-8 space-y-gutter">
+        <div class="bg-surface-container rounded-xl p-md border border-outline-variant relative overflow-hidden shadow-lg">
+          <!-- Accent strip -->
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-primary"></div>
+          
+          <div class="flex items-center gap-sm mb-lg">
+            <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+              <span class="material-symbols-outlined text-primary">edit_note</span>
+            </div>
+            <h4 class="font-headline-md text-headline-md text-on-surface">Novo Comunicado</h4>
+          </div>
+          
+          <form class="space-y-lg">
+            
+            <!-- Público-Alvo -->
+            <div>
+              <label class="font-label-md text-primary mb-3 block uppercase tracking-widest text-xs">1. Público-Alvo</label>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <label class="cursor-pointer group">
+                  <input class="hidden peer" name="audience" type="radio" checked/>
+                  <div class="border border-outline-variant p-sm rounded-lg text-center peer-checked:border-primary peer-checked:bg-primary-container/10 transition-all group-hover:border-primary/50">
+                    <span class="font-label-md text-on-surface-variant peer-checked:text-primary">Todos</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer group">
+                  <input class="hidden peer" name="audience" type="radio"/>
+                  <div class="border border-outline-variant p-sm rounded-lg text-center peer-checked:border-primary peer-checked:bg-primary-container/10 transition-all group-hover:border-primary/50 flex flex-col gap-1 items-center justify-center">
+                    <span class="font-label-md text-on-surface-variant peer-checked:text-primary">Clientes VIP</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer group">
+                  <input class="hidden peer" name="audience" type="radio"/>
+                  <div class="border border-outline-variant p-sm rounded-lg text-center peer-checked:border-primary peer-checked:bg-primary-container/10 transition-all group-hover:border-primary/50 flex flex-col gap-1 items-center justify-center">
+                    <span class="font-label-md text-on-surface-variant peer-checked:text-primary">Profissionais</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer group">
+                  <input class="hidden peer" name="audience" type="radio"/>
+                  <div class="border border-outline-variant p-sm rounded-lg text-center peer-checked:border-primary peer-checked:bg-primary-container/10 transition-all group-hover:border-primary/50 flex flex-col gap-1 items-center justify-center">
+                    <span class="font-label-md text-on-surface-variant peer-checked:text-primary flex items-center justify-center gap-1">Filtro <span class="material-symbols-outlined text-[14px]">tune</span></span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Canais -->
+            <div>
+              <label class="font-label-md text-primary mb-3 block uppercase tracking-widest text-xs">2. Canais de Envio</label>
+              <div class="flex flex-wrap gap-md">
+                <label class="flex items-center gap-2 cursor-pointer group">
+                  <input type="checkbox" checked class="w-5 h-5 rounded border-outline-variant bg-surface text-primary focus:ring-primary accent-primary"/>
+                  <span class="font-body-md text-on-surface group-hover:text-primary transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">notifications</span> Push App
+                  </span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer group">
+                  <input type="checkbox" class="w-5 h-5 rounded border-outline-variant bg-surface text-primary focus:ring-primary accent-primary"/>
+                  <span class="font-body-md text-on-surface group-hover:text-primary transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">mail</span> E-mail
+                  </span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer group">
+                  <input type="checkbox" class="w-5 h-5 rounded border-outline-variant bg-surface text-primary focus:ring-primary accent-primary"/>
+                  <span class="font-body-md text-on-surface group-hover:text-primary transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">sms</span> SMS
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Conteúdo -->
+            <div>
+              <label class="font-label-md text-primary mb-3 block uppercase tracking-widest text-xs">3. Mensagem</label>
+              <div class="space-y-4">
+                <div class="relative focus-ring rounded-lg transition-all">
+                  <span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline/50">title</span>
+                  <input class="w-full bg-surface-container-low border border-outline-variant rounded-lg pl-10 pr-sm py-3 text-on-surface focus:outline-none transition-colors placeholder:text-on-surface-variant/40" placeholder="Assunto do Comunicado" type="text"/>
+                </div>
+                
+                <div class="bg-surface-container-low border border-outline-variant rounded-lg focus-ring transition-all overflow-hidden">
+                  <div class="flex gap-1 border-b border-outline-variant/50 p-2 bg-surface-container/50">
+                    <button class="editor-btn p-1.5 rounded hover:bg-surface-container-high transition-colors text-outline" type="button" title="Negrito"><span class="material-symbols-outlined text-[20px] !text-inherit">format_bold</span></button>
+                    <button class="editor-btn p-1.5 rounded hover:bg-surface-container-high transition-colors text-outline" type="button" title="Itálico"><span class="material-symbols-outlined text-[20px] !text-inherit">format_italic</span></button>
+                    <div class="w-px h-6 bg-outline-variant/50 mx-1 self-center"></div>
+                    <button class="editor-btn p-1.5 rounded hover:bg-surface-container-high transition-colors text-outline" type="button" title="Inserir Link"><span class="material-symbols-outlined text-[20px] !text-inherit">link</span></button>
+                    <button class="editor-btn p-1.5 rounded hover:bg-surface-container-high transition-colors text-outline" type="button" title="Inserir Imagem"><span class="material-symbols-outlined text-[20px] !text-inherit">image</span></button>
+                    <button class="editor-btn p-1.5 rounded hover:bg-surface-container-high transition-colors text-outline ml-auto" type="button" title="Variáveis dinâmicas (ex: Nome)"><span class="material-symbols-outlined text-[20px] !text-inherit">data_object</span></button>
+                  </div>
+                  <textarea class="w-full bg-transparent border-none p-md text-on-surface focus:ring-0 resize-none font-body-md custom-scrollbar" placeholder="Escreva os detalhes da campanha aqui. Use o botão { } para inserir o nome do cliente..." rows="7"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Agendamento -->
+            <div class="bg-surface-container-highest/30 p-md rounded-xl border border-outline-variant/30 flex flex-col md:flex-row gap-md items-start md:items-center justify-between">
+              <div>
+                <label class="font-label-md text-primary mb-2 block uppercase tracking-widest text-[10px]">4. Programação</label>
+                <div class="flex items-center gap-md">
+                  <label class="flex items-center gap-2 cursor-pointer group">
+                    <input type="radio" name="schedule" value="now" checked class="w-4 h-4 text-primary bg-surface border-outline-variant focus:ring-primary accent-primary"/>
+                    <span class="font-body-md text-on-surface group-hover:text-primary transition-colors">Enviar agora</span>
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer group">
+                    <input type="radio" name="schedule" value="later" class="w-4 h-4 text-primary bg-surface border-outline-variant focus:ring-primary accent-primary"/>
+                    <span class="font-body-md text-on-surface group-hover:text-primary transition-colors">Agendar envio</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-sm opacity-50 pointer-events-none transition-opacity duration-300 bg-surface-container-low p-2 rounded-lg border border-outline-variant" id="scheduleInputs">
+                <div class="relative">
+                  <span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline/50 text-[18px]">calendar_month</span>
+                  <input class="bg-transparent border-none pl-8 pr-2 py-1 text-on-surface text-label-md focus:ring-0 cursor-pointer" type="date"/>
+                </div>
+                <div class="w-px h-6 bg-outline-variant"></div>
+                <div class="relative">
+                  <span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline/50 text-[18px]">schedule</span>
+                  <input class="bg-transparent border-none pl-8 pr-2 py-1 text-on-surface text-label-md focus:ring-0 cursor-pointer" type="time"/>
+                </div>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="flex justify-end items-center gap-md pt-2">
+          <button class="px-8 py-3 rounded-xl border border-outline-variant text-on-surface-variant font-bold hover:text-primary hover:border-primary transition-all active:scale-95">
+            Salvar Rascunho
+          </button>
+          <button class="px-10 py-3 rounded-xl bg-primary text-on-primary font-bold hover:brightness-110 transition-all shadow-xl shadow-primary/20 active:scale-95 flex items-center gap-2 uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[20px] !text-on-primary">send</span>
+            Enviar Broadcast
+          </button>
+        </div>
+      </div>
+
+      <!-- ─── History / Status (Right Side) ─── -->
+      <div class="col-span-12 lg:col-span-4 space-y-gutter">
+        
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-2 gap-sm">
+          <div class="bg-surface-container p-md rounded-xl border border-outline-variant text-center hover:border-primary/30 transition-colors">
+            <p class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1 flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">groups</span> Alcance
+            </p>
+            <span class="font-headline-md text-3xl text-primary">12.4k</span>
+          </div>
+          <div class="bg-surface-container p-md rounded-xl border border-outline-variant text-center hover:border-primary/30 transition-colors">
+            <p class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1 flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">visibility</span> Abertura
+            </p>
+            <span class="font-headline-md text-3xl text-primary">68%</span>
+          </div>
+        </div>
+
+        <!-- History List -->
+        <div class="bg-surface-container rounded-xl border border-outline-variant overflow-hidden flex flex-col">
+          <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-high/30">
+            <h4 class="font-label-md text-on-surface flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-[18px]">history</span>
+              Histórico Recente
+            </h4>
+            <button class="text-primary text-xs hover:underline font-medium">Ver todos</button>
+          </div>
+          <div class="divide-y divide-outline-variant/30 overflow-y-auto custom-scrollbar max-h-[350px]">
+            
+            <!-- Entry 1 -->
+            <div class="p-4 hover:bg-surface-container-highest/50 transition-colors group cursor-pointer">
+              <div class="flex justify-between items-center mb-2">
+                <span class="bg-green-500/10 text-green-400 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider border border-green-500/20">Enviado</span>
+                <span class="text-on-surface-variant text-[11px] flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">calendar_today</span> 24 Out, 14:00</span>
+              </div>
+              <h5 class="font-label-md text-on-surface group-hover:text-primary transition-colors text-sm mb-2">Promoção Especial de Verão</h5>
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-1 text-on-surface-variant text-[12px]">
+                  <span class="material-symbols-outlined text-[14px]">group</span> 850
+                </div>
+                <div class="flex items-center gap-1 text-on-surface-variant text-[12px]">
+                  <span class="material-symbols-outlined text-[14px]">ads_click</span> 72% clics
+                </div>
+              </div>
+            </div>
+
+            <!-- Entry 2 -->
+            <div class="p-4 hover:bg-surface-container-highest/50 transition-colors group cursor-pointer">
+              <div class="flex justify-between items-center mb-2">
+                <span class="bg-primary/10 text-primary text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider border border-primary/20">Agendado</span>
+                <span class="text-on-surface-variant text-[11px] flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> Amanhã, 09:00</span>
+              </div>
+              <h5 class="font-label-md text-on-surface group-hover:text-primary transition-colors text-sm mb-2">Novo Barbeiro: Arthur M.</h5>
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-1 text-on-surface-variant text-[12px]">
+                  <span class="material-symbols-outlined text-[14px]">group</span> 1.2k (VIPs)
+                </div>
+              </div>
+            </div>
+
+            <!-- Entry 3 -->
+            <div class="p-4 hover:bg-surface-container-highest/50 transition-colors group cursor-pointer">
+              <div class="flex justify-between items-center mb-2">
+                <span class="bg-surface-variant text-on-surface-variant text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider border border-outline-variant">Rascunho</span>
+                <span class="text-on-surface-variant text-[11px] flex items-center gap-1">Há 2 horas</span>
+              </div>
+              <h5 class="font-label-md text-on-surface group-hover:text-primary transition-colors text-sm mb-2">Inauguração Unidade Jardins</h5>
+              <div class="flex items-center gap-4 opacity-50">
+                <span class="text-[12px] text-outline">Aguardando envio</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Visual Accent Card -->
+        <div class="relative rounded-xl aspect-[16/9] overflow-hidden group shadow-xl border border-outline-variant/30">
+          <img alt="Luxury Barbershop Campaign" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvsHCIyaQP9982dYdh9mfQ9r1EkLOlMieQRMCoxRpWHcxAG_95M_sKsEF_7xWb2Ihqwfhdd96E77oXML5hJVIoTqwXB2Cg6rjG0Yyl2YLKHVTOTKFIOU1HOsGct6KaVLi1TlfrNFPfS_CtqTY1RLC93Y2Gh90aIdiKJ5aZQ0wzV-ESQ97s-h-gCKtruJ40SbYP1QWj7kIrdZFDMMCyyqbcxP0jkf9mWvpqhwXUGn_DjoXHPbUT-K-wDVMPnBTgKsbYuYV17wpHoMB3"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+              <p class="font-headline-md text-primary text-lg">Marketing Premium</p>
+            </div>
+            <p class="text-xs text-on-surface/80 leading-relaxed">Mantenha sua base de clientes engajada com comunicados exclusivos e personalizados.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  // ── Scheduling Display Logic ──
+  const scheduleRadios = document.querySelectorAll('input[name="schedule"]');
+  const scheduleInputs = document.getElementById('scheduleInputs');
+
+  scheduleRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      if (e.target.value === 'later') {
+        scheduleInputs.classList.remove('opacity-50', 'pointer-events-none');
+      } else {
+        scheduleInputs.classList.add('opacity-50', 'pointer-events-none');
+      }
+    });
+  });
+
+  // ── Editor Buttons Interactive ──
+  // Just a simple visual feedback script for the mockup
+  const editorBtns = document.querySelectorAll('.editor-btn');
+  editorBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.classList.toggle('text-primary');
+      this.classList.toggle('text-outline');
+    });
+  });
+</script>
+</body>
+</html>

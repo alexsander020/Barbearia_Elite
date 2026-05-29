@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>BarberFlow Elite | Diretório de Membros</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            color: #D4AF37; /* Consistent Gold Wayfinders */
+        }
+        .active-gold-border {
+            border-left: 2px solid #D4AF37;
+        }
+        .table-row-hover:hover {
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#1c1b1b",
+                    "surface-bright": "#393939",
+                    "on-primary": "#3c2f00",
+                    "surface-variant": "#353534",
+                    "surface-container-high": "#2a2a2a",
+                    "on-primary-fixed-variant": "#574500",
+                    "secondary-fixed": "#ffdad7",
+                    "on-surface": "#e5e2e1",
+                    "secondary-fixed-dim": "#ffb3ad",
+                    "surface-tint": "#e9c349",
+                    "primary-fixed-dim": "#e9c349",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#d0c5af",
+                    "on-primary-fixed": "#241a00",
+                    "surface": "#131313",
+                    "secondary": "#ffb3ad",
+                    "on-tertiary-fixed": "#1b1b1c",
+                    "inverse-surface": "#e5e2e1",
+                    "on-secondary-fixed": "#3d0506",
+                    "on-background": "#e5e2e1",
+                    "surface-dim": "#131313",
+                    "surface-container": "#201f1f",
+                    "outline-variant": "#4d4635",
+                    "surface-container-highest": "#353534",
+                    "outline": "#99907c",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-error": "#690005",
+                    "tertiary-container": "#b4b2b2",
+                    "on-tertiary": "#303030",
+                    "background": "#131313",
+                    "tertiary": "#d0cdcd",
+                    "inverse-primary": "#735c00",
+                    "on-secondary": "#5a1a19",
+                    "on-secondary-fixed-variant": "#77302d",
+                    "primary-fixed": "#ffe088",
+                    "on-secondary-container": "#ff9e97",
+                    "primary": "#f2ca50",
+                    "secondary-container": "#7a322f",
+                    "error": "#ffb4ab",
+                    "on-primary-container": "#554300",
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "inverse-on-surface": "#313030",
+                    "tertiary-fixed": "#e5e2e1",
+                    "on-tertiary-container": "#454544",
+                    "primary-container": "#d4af37"
+            },
+            "borderRadius": {
+                    "DEFAULT": "4px",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "xl": "64px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "margin-desktop": "48px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-72 flex flex-col fixed left-0 top-0 bg-surface-container-low border-r border-surface-variant z-50">
+    <div class="flex flex-col h-full py-md">
+        <div class="px-6 mb-10">
+            <h1 class="font-headline-md text-headline-md text-primary uppercase tracking-wider">BarberFlow Elite</h1>
+            <p class="text-xs text-on-surface-variant tracking-widest opacity-70">Console de Administração</p>
+        </div>
+        <nav class="flex-1 space-y-1">
+            <a class="flex items-center text-on-surface-variant hover:text-on-surface px-6 py-3 hover:bg-surface-container-high transition-colors duration-200" href="admin.html">
+                <span class="material-symbols-outlined mr-4">dashboard</span>
+                <span class="font-body-md">Visão Geral</span>
+            </a>
+            <a class="flex items-center text-primary font-bold border-l-2 border-primary bg-surface-container-highest px-6 py-3 transition-colors duration-200" href="usuarios.html">
+                <span class="material-symbols-outlined mr-4">group</span>
+                <span class="font-body-md">Usuários</span>
+            </a>
+            <a class="flex items-center text-on-surface-variant hover:text-on-surface px-6 py-3 hover:bg-surface-container-high transition-colors duration-200" href="painel.html">
+                <span class="material-symbols-outlined mr-4">content_cut</span>
+                <span class="font-body-md">Profissionais</span>
+            </a>
+            <a class="flex items-center text-on-surface-variant hover:text-on-surface px-6 py-3 hover:bg-surface-container-high transition-colors duration-200" href="relatorios.html">
+                <span class="material-symbols-outlined mr-4">bar_chart</span>
+                <span class="font-body-md">Relatórios</span>
+            </a>
+            <a class="flex items-center text-on-surface-variant hover:text-on-surface px-6 py-3 hover:bg-surface-container-high transition-colors duration-200" href="home.html">
+                <span class="material-symbols-outlined mr-4">store</span>
+                <span class="font-body-md">Ir para a Loja</span>
+            </a>
+        </nav>
+        <div class="mt-auto px-6 py-4 flex items-center border-t border-surface-variant">
+            <img onclick="window.location.href='onboarding.html'" alt="Admin" class="w-10 h-10 rounded-full border border-primary/30 cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMbh-fIqxTl9YgyjGEF_RbNzYlk-rOtEHF2NxWLQk_ipHAqViGBnjDGqjmFTKjXXy_qmkIhKfjcYTt658lHe8zprKj8cXwNo4MBPoY23aopy8jbuJpL-UiuchoyGBFBPGS-TNRInGdgikkA3JqON5NOliXd7l3VYvIsVfUjKIHA4c9ACOAHpetB4Is1TheMHKGhua7S7hs0VtTnwbWKAU1DM52RSi6B3IwWiBL33vBuCqjd1sYR4JXBmxEt02E4Ov2uG3DIHqima2e"/>
+            <div class="ml-3 overflow-hidden">
+                <p class="text-label-md truncate">Julian Thorne</p>
+                <p class="text-xs text-on-surface-variant">Master Admin</p>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- Main Content Area -->
+<main class="ml-72 flex-1 flex flex-col min-h-screen">
+    <!-- Top Navigation -->
+    <header class="docked full-width top-0 sticky z-40 bg-surface-container border-b border-surface-variant px-margin-desktop py-4 flex justify-between items-center">
+        <div class="flex items-center bg-surface-container-low px-4 py-2 rounded-lg border border-surface-variant w-96">
+            <span class="material-symbols-outlined text-sm mr-2">search</span>
+            <input class="bg-transparent border-none focus:ring-0 text-body-md w-full placeholder-on-surface-variant text-on-surface" placeholder="Buscar por nome, email ou ID..." type="text"/>
+        </div>
+        <div class="flex items-center space-x-6">
+            <button onclick="window.location.href='home.html'" class="text-on-surface-variant hover:text-primary transition-colors flex items-center space-x-2">
+                <span class="material-symbols-outlined">help_outline</span>
+                <span class="font-label-md uppercase text-xs">Suporte</span>
+            </button>
+            <div class="relative">
+                <span class="material-symbols-outlined text-2xl cursor-pointer hover:text-primary transition-colors">notifications</span>
+                <span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></span>
+            </div>
+            <span onclick="window.location.href='onboarding.html'" class="material-symbols-outlined text-2xl cursor-pointer hover:text-primary transition-colors">account_circle</span>
+        </div>
+    </header>
+
+    <!-- Page Header & Tabs -->
+    <section class="px-margin-desktop pt-10 pb-6">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg mb-2">Diretório de Membros</h2>
+                <p class="text-on-surface-variant font-body-md">Gerencie e audite sua comunidade de profissionais e clientes.</p>
+            </div>
+            <div class="flex space-x-4">
+                <button class="bg-surface-container-high border border-surface-variant text-on-surface px-6 py-2 rounded-lg font-label-md flex items-center hover:bg-surface-bright transition-all">
+                    <span class="material-symbols-outlined mr-2">download</span>
+                    Exportar Dados
+                </button>
+                <button onclick="window.location.href='register.html'" class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md flex items-center hover:brightness-110 transition-all">
+                    <span class="material-symbols-outlined mr-2" style="color: #3c2f00">person_add</span>
+                    Novo Usuário
+                </button>
+            </div>
+        </div>
+
+        <!-- Custom Tabs -->
+        <div class="flex space-x-8 border-b border-surface-variant">
+            <button class="pb-4 px-2 text-primary border-b-2 border-primary font-label-md">Todos os Usuários (1.248)</button>
+            <button onclick="window.location.href='admin.html'" class="pb-4 px-2 text-on-surface-variant hover:text-on-surface font-label-md transition-colors relative">
+                Aprovações Pendentes (12)
+                <span class="ml-2 bg-primary-container text-on-primary-container text-[10px] px-1.5 py-0.5 rounded-full font-bold">NOVO</span>
+            </button>
+            <button class="pb-4 px-2 text-on-surface-variant hover:text-on-surface font-label-md transition-colors">Contas Bloqueadas</button>
+            <button class="pb-4 px-2 text-on-surface-variant hover:text-on-surface font-label-md transition-colors">Arquivados</button>
+        </div>
+    </section>
+
+    <!-- Table Filters -->
+    <section class="px-margin-desktop mb-6 flex flex-wrap items-center gap-4">
+        <div class="bg-surface-container-high border border-surface-variant rounded-full px-4 py-1.5 flex items-center space-x-2 text-xs font-label-md text-on-surface-variant cursor-pointer hover:border-primary transition-all">
+            <span>Função: Todos</span>
+            <span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+        </div>
+        <div class="bg-surface-container-high border border-surface-variant rounded-full px-4 py-1.5 flex items-center space-x-2 text-xs font-label-md text-on-surface-variant cursor-pointer hover:border-primary transition-all">
+            <span>Data de Entrada: Últimos 30 Dias</span>
+            <span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+        </div>
+        <div class="bg-surface-container-high border border-primary/50 rounded-full px-4 py-1.5 flex items-center space-x-2 text-xs font-label-md text-primary cursor-pointer">
+            <span>Status: Ativo</span>
+            <span class="material-symbols-outlined text-xs">close</span>
+        </div>
+        <span class="text-xs text-on-surface-variant underline cursor-pointer ml-auto">Limpar todos os filtros</span>
+    </section>
+
+    <!-- Main Data Table -->
+    <section class="px-margin-desktop pb-20">
+        <div class="bg-surface-container-low border border-surface-variant rounded-xl overflow-hidden shadow-2xl">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-high/50 border-b border-surface-variant">
+                        <th class="py-5 px-6 font-label-md text-on-surface-variant text-xs uppercase tracking-widest">Nome</th>
+                        <th class="py-5 px-6 font-label-md text-on-surface-variant text-xs uppercase tracking-widest">Função</th>
+                        <th class="py-5 px-6 font-label-md text-on-surface-variant text-xs uppercase tracking-widest">Data de Cadastro</th>
+                        <th class="py-5 px-6 font-label-md text-on-surface-variant text-xs uppercase tracking-widest">Status</th>
+                        <th class="py-5 px-6 font-label-md text-on-surface-variant text-xs uppercase tracking-widest text-right">Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-surface-variant/30">
+                    <!-- Pending Row -->
+                    <tr class="table-row-hover transition-colors group">
+                        <td class="py-4 px-6">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-surface-container-high border border-primary/20 flex items-center justify-center mr-4">
+                                    <img alt="User" class="rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV2hL6x_jcjhfTHA_XJ9BwixcwiY9oumDd4FoddSQbG3QrKelJ5dcpIoEBL4QTe6ZSRX9Z8SU2cx7-JASAjUq1pRSBR_fxu6n-4Sj-KXYfd7Y1tJZS2pA_IiCJJr2qSOMGGRzxC7u5brdzqE6xtDyslB9-fpSdjXGOgVMD1nVR7-qAJJt76Qz5KxlFVU8BCVSJlrzq_vJyaUD189q0HofDH8Achfab1y9fZMTirs9N2G1P2ammDrrG4hBnKkpWaru1W27WTrLRw5-X"/>
+                                </div>
+                                <div>
+                                    <p class="font-headline-md text-sm text-on-surface">Alexander Mercer</p>
+                                    <p class="text-xs text-on-surface-variant">alex.mercer@stylehouse.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded text-[11px] font-bold tracking-widest uppercase">Profissional</span>
+                        </td>
+                        <td class="py-4 px-6 text-on-surface-variant text-sm">24 Out, 2023</td>
+                        <td class="py-4 px-6">
+                            <div class="inline-flex items-center bg-primary/10 border border-primary/30 text-primary px-3 py-1 rounded-full text-xs font-bold animate-pulse">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary mr-2"></span>
+                                Aguardando Aprovação
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 text-right">
+                            <div class="flex justify-end space-x-2">
+                                <button onclick="window.location.href='admin.html'" class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-all" title="Approve">
+                                    <span class="material-symbols-outlined">check_circle</span>
+                                </button>
+                                <button class="p-2 text-error hover:bg-error/10 rounded-lg transition-all" title="Reject/Block">
+                                    <span class="material-symbols-outlined" style="color: #ffb4ab">block</span>
+                                </button>
+                                <button onclick="window.location.href='painel.html'" class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" title="View Profile">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Standard Row -->
+                    <tr class="table-row-hover transition-colors">
+                        <td class="py-4 px-6">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-surface-container-high border border-surface-variant flex items-center justify-center mr-4">
+                                    <img alt="User" class="rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjhcyNDCvCCqLKgeeJVkagw-Td8tAfyF0wgqeWedDlUbV9F9PWUvdfAq8Z4MB1JzdipIK3TFcfqQNoD8YS0mK4IfJjQI7_H2GUu_Y0QO17BiwKZJCAD972zGG6RTrjS9iOKwvf8QaoPtrLBm-8MLpmAzEN3wHzGTqPBjplhJQvR7h51KCPPKd7NG5Nzs3fmcXVJpcCU9qJqCYQR0E-GLuW2yqswsZMrUFPvxqxbYMA_JLXH2fCEHm6lutybHS8KGS2BorwkSAqoiJR"/>
+                                </div>
+                                <div>
+                                    <p class="font-headline-md text-sm text-on-surface">Julianna Dubois</p>
+                                    <p class="text-xs text-on-surface-variant">j.dubois@icloud.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span class="bg-surface-container text-on-surface-variant px-3 py-1 rounded text-[11px] font-bold tracking-widest uppercase">Cliente</span>
+                        </td>
+                        <td class="py-4 px-6 text-on-surface-variant text-sm">12 Set, 2023</td>
+                        <td class="py-4 px-6">
+                            <div class="inline-flex items-center text-on-surface-variant px-3 py-1 rounded-full text-xs font-bold">
+                                <span class="w-1.5 h-1.5 rounded-full bg-outline mr-2"></span>
+                                Ativo
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 text-right">
+                            <div class="flex justify-end space-x-2">
+                                <button class="p-2 text-error hover:bg-error/10 rounded-lg transition-all">
+                                    <span class="material-symbols-outlined" style="color: #ffb4ab">block</span>
+                                </button>
+                                <button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Professional Row -->
+                    <tr class="table-row-hover transition-colors">
+                        <td class="py-4 px-6">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-surface-container-high border border-surface-variant flex items-center justify-center mr-4">
+                                    <img alt="User" class="rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu4sw_pO5r-PjZla8b26hpfyJCCYyKCQTfEZBKqML0YvJGVWp7R7GeB6HRxPWUoygwL4kLuo71glzoR91-R4pvJp4Z839wjp4EYGG5ZNBO2ufmoMp6bzn_mLu-rQdYuOskfjcFfikqVnrH-o3bB6rJg6FkbZmMXkws5fHPsB8MAoGkEeo0EzqkKvXgO-0ljZfd0Ia_RzpDTujSbL_XQXsoLZtxNVyEVEhJgQf_ArZayhZEFGl6As0NELocnJgnsvxqfDoliZRlmYYa"/>
+                                </div>
+                                <div>
+                                    <p class="font-headline-md text-sm text-on-surface">Sebastian Hayes</p>
+                                    <p class="text-xs text-on-surface-variant">hayes.grooming@pro.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded text-[11px] font-bold tracking-widest uppercase">Profissional</span>
+                        </td>
+                        <td class="py-4 px-6 text-on-surface-variant text-sm">30 Ago, 2023</td>
+                        <td class="py-4 px-6">
+                            <div class="inline-flex items-center text-on-surface-variant px-3 py-1 rounded-full text-xs font-bold">
+                                <span class="w-1.5 h-1.5 rounded-full bg-outline mr-2"></span>
+                                Ativo
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 text-right">
+                            <div class="flex justify-end space-x-2">
+                                <button class="p-2 text-error hover:bg-error/10 rounded-lg transition-all">
+                                    <span class="material-symbols-outlined" style="color: #ffb4ab">block</span>
+                                </button>
+                                <button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Blocked Row -->
+                    <tr class="table-row-hover transition-colors bg-error/5">
+                        <td class="py-4 px-6">
+                            <div class="flex items-center grayscale opacity-60">
+                                <div class="w-10 h-10 rounded-full bg-surface-container-high border border-surface-variant flex items-center justify-center mr-4">
+                                    <img alt="User" class="rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvhANsW-GFpBkAxGwyxJ6Ud13fNVn10GqiVQqB0ftTdq2J0TNKOZ9nTP3SYf2XIjDJuFI1M4ji8nfJD1eFXWo4W6wAbLxCwoZwVJWhGyv3CEmH0CJHErQap6d9j4zCzQvnnwZwvOWrYeKjO-hvkxPDn2hXBkXpvd2TV1_P8Xbj7rje8ycijf_4lSt-zPd992NpAkW6hMA5t0I425yb4Z3zDcIbYTf0aAesDewy3WD_6YArz8o79iyX0zQXmxLDLc0DRYn77WLehv2Q"/>
+                                </div>
+                                <div>
+                                    <p class="font-headline-md text-sm text-on-surface">Victor Reed</p>
+                                    <p class="text-xs text-on-surface-variant">v.reed@spam.net</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span class="bg-surface-container text-on-surface-variant px-3 py-1 rounded text-[11px] font-bold tracking-widest uppercase opacity-60">Cliente</span>
+                        </td>
+                        <td class="py-4 px-6 text-on-surface-variant text-sm opacity-60">11 Mai, 2023</td>
+                        <td class="py-4 px-6">
+                            <div class="inline-flex items-center bg-error/10 border border-error/30 text-error px-3 py-1 rounded-full text-xs font-bold">
+                                <span class="w-1.5 h-1.5 rounded-full bg-error mr-2"></span>
+                                Bloqueado
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 text-right">
+                            <div class="flex justify-end space-x-2">
+                                <button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-all" title="Unblock">
+                                    <span class="material-symbols-outlined">refresh</span>
+                                </button>
+                                <button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Pagination -->
+            <div class="px-6 py-4 bg-surface-container-high/30 border-t border-surface-variant flex items-center justify-between">
+                <p class="text-xs text-on-surface-variant">Mostrando 1 a 10 de 1.248 resultados</p>
+                <div class="flex items-center space-x-2">
+                    <button class="w-8 h-8 flex items-center justify-center rounded border border-surface-variant hover:bg-surface-container-high disabled:opacity-50" disabled="">
+                        <span class="material-symbols-outlined text-sm">chevron_left</span>
+                    </button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-bold text-xs">1</button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded border border-surface-variant hover:bg-surface-container-high text-xs text-on-surface-variant">2</button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded border border-surface-variant hover:bg-surface-container-high text-xs text-on-surface-variant">3</button>
+                    <span class="px-2 text-on-surface-variant">...</span>
+                    <button class="w-8 h-8 flex items-center justify-center rounded border border-surface-variant hover:bg-surface-container-high text-xs text-on-surface-variant">125</button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded border border-surface-variant hover:bg-surface-container-high">
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Overview (Asymmetric Detail) -->
+    <section class="px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter mb-20">
+        <div class="bg-surface-container-low border border-surface-variant p-6 rounded-xl">
+            <p class="text-xs text-on-surface-variant uppercase tracking-widest font-label-md mb-2">Crescimento Total</p>
+            <div class="flex items-end justify-between">
+                <h4 class="text-3xl font-headline-md text-primary">+12%</h4>
+                <span class="material-symbols-outlined text-3xl opacity-20">trending_up</span>
+            </div>
+        </div>
+        <div class="bg-surface-container-low border border-surface-variant p-6 rounded-xl">
+            <p class="text-xs text-on-surface-variant uppercase tracking-widest font-label-md mb-2">Retenção de Profissionais</p>
+            <div class="flex items-end justify-between">
+                <h4 class="text-3xl font-headline-md text-on-surface">94.2%</h4>
+                <span class="material-symbols-outlined text-3xl opacity-20">verified</span>
+            </div>
+        </div>
+        <div class="md:col-span-2 bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 p-6 rounded-xl flex items-center">
+            <div class="flex-1">
+                <p class="text-xs text-primary uppercase tracking-widest font-label-md mb-2">Status da Documentação</p>
+                <p class="text-on-surface-variant text-sm">8 Profissionais estão aguardando verificação manual de licença. Ação requerida nas próximas 24 horas.</p>
+            </div>
+            <button onclick="window.location.href='admin.html'" class="ml-4 bg-primary text-on-primary px-4 py-2 rounded font-label-md text-xs hover:brightness-110 transition-all">Revisar Todos</button>
+        </div>
+    </section>
+</main>
+
+<script>
+    // Micro-interactions for table rows
+    document.querySelectorAll('tr.table-row-hover').forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            row.style.transform = 'translateX(4px)';
+            row.style.transition = 'all 0.2s ease-out';
+        });
+        row.addEventListener('mouseleave', () => {
+            row.style.transform = 'translateX(0)';
+        });
+    });
+
+    // Tab switching simulation
+    const tabs = document.querySelectorAll('.pb-4.px-2');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => {
+                t.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                t.classList.add('text-on-surface-variant');
+            });
+            tab.classList.add('text-primary', 'border-b-2', 'border-primary');
+            tab.classList.remove('text-on-surface-variant');
+        });
+    });
+</script>
+</body>
+</html>

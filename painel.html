@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>BarberFlow Elite | Painel do Profissional</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#574500",
+                    "inverse-primary": "#735c00",
+                    "on-secondary-fixed-variant": "#77302d",
+                    "surface-tint": "#e9c349",
+                    "on-tertiary": "#303030",
+                    "secondary-container": "#7a322f",
+                    "on-primary": "#3c2f00",
+                    "on-surface": "#e5e2e1",
+                    "secondary-fixed": "#ffdad7",
+                    "inverse-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "primary-fixed": "#ffe088",
+                    "on-surface-variant": "#d0c5af",
+                    "tertiary-fixed": "#e5e2e1",
+                    "on-secondary": "#5a1a19",
+                    "on-primary-fixed": "#241a00",
+                    "background": "#131313",
+                    "surface-container-low": "#1c1b1b",
+                    "on-primary-container": "#554300",
+                    "on-tertiary-container": "#454544",
+                    "primary-fixed-dim": "#e9c349",
+                    "on-secondary-fixed": "#3d0506",
+                    "surface-container-lowest": "#0e0e0e",
+                    "primary": "#f2ca50",
+                    "outline": "#99907c",
+                    "secondary-fixed-dim": "#ffb3ad",
+                    "tertiary": "#d0cdcd",
+                    "surface-bright": "#393939",
+                    "primary-container": "#d4af37",
+                    "surface-container": "#201f1f",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "surface-variant": "#353534",
+                    "on-background": "#e5e2e1",
+                    "on-error-container": "#ffdad6",
+                    "surface-dim": "#131313",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary": "#ffb3ad",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "on-error": "#690005",
+                    "error-container": "#93000a",
+                    "outline-variant": "#4d4635",
+                    "surface-container-highest": "#353534",
+                    "surface": "#131313",
+                    "tertiary-container": "#b4b2b2",
+                    "on-secondary-container": "#ff9e97",
+                    "on-tertiary-fixed": "#1b1b1c",
+                    "error": "#ffb4ab"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "lg": "40px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-card {
+            background-color: #1E1E1E;
+            border: 1px solid #2A2A2A;
+        }
+        .gold-accent {
+            border-left: 2px solid #D4AF37;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- SideNavBar (Shared Component Identity) -->
+<nav class="fixed left-0 top-0 h-screen flex flex-col p-md z-40 bg-surface-container dark:bg-surface-container w-64 border-r border-outline-variant">
+    <div class="mb-xl">
+        <div class="flex items-center gap-sm">
+            <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">content_cut</span>
+            </div>
+            <div>
+                <h1 class="font-headline-md text-headline-md text-primary">BarberFlow Elite</h1>
+                <p class="font-label-sm text-label-sm text-outline">Professional Suite</p>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col gap-base flex-grow">
+        <!-- Active Tab -->
+        <a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-lg p-sm border-l-2 border-primary transition-all active:scale-98" href="painel.html">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+            <span class="font-label-md text-label-md">Dashboard</span>
+        </a>
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all" href="agenda.html">
+            <span class="material-symbols-outlined">calendar_month</span>
+            <span class="font-label-md text-label-md">Agenda</span>
+        </a>
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all" href="financas.html">
+            <span class="material-symbols-outlined">payments</span>
+            <span class="font-label-md text-label-md">Finanças</span>
+        </a>
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all" href="relatorios.html">
+            <span class="material-symbols-outlined">analytics</span>
+            <span class="font-label-md text-label-md">Relatórios</span>
+        </a>
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all" href="home.html">
+            <span class="material-symbols-outlined">store</span>
+            <span class="font-label-md text-label-md">Ir para a Loja</span>
+        </a>
+    </div>
+    <div class="mt-auto pt-md border-t border-outline-variant flex flex-col gap-base">
+        <button onclick="window.location.href='agendamento.html'" class="bg-primary text-on-primary py-base px-md rounded-lg font-label-md mb-md hover:brightness-90 transition-all">
+            Novo Agendamento
+        </button>
+        <a class="flex items-center gap-sm text-on-surface-variant p-sm hover:bg-surface-variant transition-all" href="onboarding.html">
+            <span class="material-symbols-outlined">logout</span>
+            <span class="font-label-md text-label-md">Sair</span>
+        </a>
+    </div>
+</nav>
+
+<!-- Main Content Canvas -->
+<main class="ml-64 p-margin-desktop min-h-screen">
+    <!-- Header / Status Bar -->
+    <header class="flex justify-between items-center mb-xl">
+        <div>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">Painel do Profissional</h2>
+            <p class="font-body-md text-body-md text-outline">Bem-vindo de volta, Sr. Ricardo.</p>
+        </div>
+        <div class="flex items-center gap-md">
+            <!-- Professional Status -->
+            <div class="flex items-center gap-sm bg-surface-container-high px-md py-sm rounded-full border border-outline-variant cursor-pointer">
+                <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="font-label-md text-label-md text-on-surface">Online</span>
+                <span class="material-symbols-outlined text-primary">expand_more</span>
+            </div>
+            <div class="flex gap-sm">
+                <button class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-high text-primary border border-outline-variant hover:bg-surface-variant transition-colors">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <img onclick="window.location.href='onboarding.html'" alt="Profile" class="w-12 h-12 rounded-full border-2 border-primary object-cover cursor-pointer" data-alt="A professional headshot of a distinguished male barber in his late 30s, featuring a well-groomed beard and sharp haircut. He is wearing a dark, tailored stylist apron in a luxury barbershop setting with soft, warm golden rim lighting. The background shows blurred vintage barber equipment and dark wood textures, maintaining a high-end masculine aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnc96L04-Uk7uz9E-AwdH896qyXczb_CENXQ_yakR01NG0NAkm2RBdDNHNn_FCsxbqLEkTdhgO2b6E1EqRODYppZSQXzbCAo8XPMGOEv_guvIXQVCDu66CB_lqPVeBHilY-Tz3Dh-Q64cMpM_SfFq_VbjzQ25QYINCJ_jZ6yhvNlE8G5d8_WcF9GxpanJxZwP6b72nJH07kJ3PenmQhwdUuVbqE2OTyt3T9TTJEM2_Fgjw5TOIeuScGZrTcJXxzR_yAt-JVEP-qrHG"/>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bento Grid Layout -->
+    <div class="grid grid-cols-12 gap-gutter">
+        <!-- Next Client Card (Large) -->
+        <div class="col-span-12 lg:col-span-8 bento-card p-lg rounded-xl flex flex-col md:flex-row gap-lg items-center gold-accent relative overflow-hidden">
+            <!-- Background visual element -->
+            <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none">
+                <span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">event_seat</span>
+            </div>
+            <div class="relative z-10">
+                <img alt="Next Client" class="w-32 h-32 rounded-xl object-cover border-2 border-primary-container" data-alt="Close-up portrait of a young male client with a modern undercut hairstyle, looking confidently at the camera. The image has high contrast with dramatic side lighting that emphasizes texture and sharp lines. The color palette is dominated by deep charcoal and warm amber tones, consistent with a luxury dark-mode grooming application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZEv_2Dzl4olLsnanb9T1hmwBGvxsYGXqf4P0PPrvVTxBskORgnzh-90n7JovnimS23T1bmiD4W0NNc4U2MLOf9OwTixpJfGNbIdfoyVVNbqrjv7XnDM1QcIosi-4eEEVVG-rMIYImPaP2j9t5i6rG3HnhmC7d6J3ZgdVhnNN8z3VSzjFJSCUTLfESWSvE7p6lf6LW9qe9r17XJjYg3UJcOZtGrIeXgm-NiEFGyG3Lf8WqP6htVlVS5jlGaJDcopVxEsDLgoQS4ouH"/>
+                <div class="absolute -bottom-2 -right-2 bg-primary text-on-primary px-sm py-xs rounded-lg font-label-sm shadow-xl">
+                    15:30
+                </div>
+            </div>
+            <div class="flex-grow z-10 text-center md:text-left">
+                <div class="flex flex-col md:flex-row md:items-center gap-sm mb-base">
+                    <span class="font-label-md text-label-md text-primary tracking-widest uppercase">Próximo Cliente</span>
+                    <div class="h-px bg-outline-variant flex-grow hidden md:block"></div>
+                </div>
+                <h3 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Gustavo Oliveira</h3>
+                <p class="font-body-lg text-body-lg text-outline-variant mb-md flex items-center justify-center md:justify-start gap-xs">
+                    <span class="material-symbols-outlined text-primary text-sm">content_cut</span>
+                    Corte Fade Premium + Barba Terapia
+                </p>
+                <div class="flex flex-wrap gap-md justify-center md:justify-start">
+                    <div class="flex flex-col">
+                        <span class="font-label-sm text-label-sm text-outline">Tempo Restante</span>
+                        <span class="font-headline-md text-headline-md text-primary">12 min</span>
+                    </div>
+                    <div class="w-px bg-outline-variant h-10 hidden sm:block"></div>
+                    <div class="flex flex-col">
+                        <span class="font-label-sm text-label-sm text-outline">Duração Estimada</span>
+                        <span class="font-headline-md text-headline-md text-on-surface">50 min</span>
+                    </div>
+                </div>
+            </div>
+            <div class="z-10 flex flex-col gap-sm">
+                <button onclick="window.location.href='fila.html'" class="bg-primary text-on-primary font-label-md px-lg py-sm rounded-lg hover:brightness-110 transition-all flex items-center gap-sm">
+                    <span class="material-symbols-outlined">play_arrow</span>
+                    Iniciar Atendimento
+                </button>
+                <button onclick="window.location.href='fila.html'" class="border border-outline text-on-surface font-label-md px-lg py-sm rounded-lg hover:bg-surface-variant transition-all">
+                    Ver Detalhes
+                </button>
+            </div>
+        </div>
+        <!-- Quick Metrics -->
+        <div class="col-span-12 lg:col-span-4 grid grid-cols-2 gap-gutter">
+            <div class="col-span-2 bento-card p-md rounded-xl flex items-center gap-md">
+                <div class="w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">group</span>
+                </div>
+                <div>
+                    <p class="font-label-sm text-label-sm text-outline">Clientes Hoje</p>
+                    <h4 class="font-headline-md text-headline-md text-on-surface">14/18</h4>
+                </div>
+            </div>
+            <div class="col-span-2 bento-card p-md rounded-xl flex items-center gap-md">
+                <div class="w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">payments</span>
+                </div>
+                <div>
+                    <p class="font-label-sm text-label-sm text-outline">Faturamento do Dia</p>
+                    <h4 class="font-headline-md text-headline-md text-primary">R$ 1.420,00</h4>
+                </div>
+            </div>
+            <div class="col-span-2 bento-card p-md rounded-xl flex items-center gap-md">
+                <div class="w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">timer</span>
+                </div>
+                <div>
+                    <p class="font-label-sm text-label-sm text-outline">Tempo Médio</p>
+                    <h4 class="font-headline-md text-headline-md text-on-surface">38 min</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Weekly Chart Section -->
+        <div class="col-span-12 lg:col-span-7 bento-card p-lg rounded-xl">
+            <div class="flex justify-between items-end mb-lg">
+                <div>
+                    <h3 class="font-headline-md text-headline-md text-on-surface">Performance Semanal</h3>
+                    <p class="font-label-sm text-label-sm text-outline">+12% em relação à semana passada</p>
+                </div>
+                <div class="flex gap-xs bg-surface-container px-xs py-xs rounded-lg">
+                    <button class="px-md py-xs rounded bg-surface-variant text-on-surface font-label-sm">Semana</button>
+                    <button class="px-md py-xs rounded text-outline font-label-sm hover:text-on-surface">Mês</button>
+                </div>
+            </div>
+            <!-- Mock Chart Visual -->
+            <div class="h-64 flex items-end justify-between gap-base pt-md">
+                <div class="flex flex-col items-center flex-1 group">
+                    <div class="w-full bg-surface-container-highest rounded-t-lg transition-all group-hover:bg-primary-container" style="height: 60%;"></div>
+                    <span class="font-label-sm text-label-sm text-outline mt-sm">Seg</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 group">
+                    <div class="w-full bg-surface-container-highest rounded-t-lg transition-all group-hover:bg-primary-container" style="height: 75%;"></div>
+                    <span class="font-label-sm text-label-sm text-outline mt-sm">Ter</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 group">
+                    <div class="w-full bg-surface-container-highest rounded-t-lg transition-all group-hover:bg-primary-container" style="height: 45%;"></div>
+                    <span class="font-label-sm text-label-sm text-outline mt-sm">Qua</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 group">
+                    <div class="w-full bg-primary rounded-t-lg shadow-[0_0_20px_rgba(242,202,80,0.3)]" style="height: 90%;"></div>
+                    <span class="font-label-sm text-label-sm text-primary mt-sm">Qui</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 group">
+                    <div class="w-full bg-surface-container-highest rounded-t-lg transition-all group-hover:bg-primary-container" style="height: 80%;"></div>
+                    <span class="font-label-sm text-label-sm text-outline mt-sm">Sex</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 group">
+                    <div class="w-full bg-surface-container-highest rounded-t-lg transition-all group-hover:bg-primary-container" style="height: 95%;"></div>
+                    <span class="font-label-sm text-label-sm text-outline mt-sm">Sab</span>
+                </div>
+                <div class="flex flex-col items-center flex-1 group">
+                    <div class="w-full bg-surface-container-highest rounded-t-lg transition-all group-hover:bg-primary-container" style="height: 30%;"></div>
+                    <span class="font-label-sm text-label-sm text-outline mt-sm">Dom</span>
+                </div>
+            </div>
+        </div>
+        <!-- Queue (Próximos na Fila) -->
+        <div class="col-span-12 lg:col-span-5 bento-card p-lg rounded-xl">
+            <div class="flex justify-between items-center mb-lg">
+                <h3 class="font-headline-md text-headline-md text-on-surface">Próximos na Fila</h3>
+                <button onclick="window.location.href='fila.html'" class="text-primary font-label-md flex items-center gap-xs">
+                    Ver Agenda <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+            </div>
+            <div class="flex flex-col gap-md">
+                <!-- Queue Item 1 -->
+                <div onclick="window.location.href='fila.html'" class="flex items-center gap-md p-sm rounded-lg hover:bg-surface-container-high transition-all cursor-pointer border-b border-outline-variant/30 pb-md last:border-0">
+                    <div class="relative">
+                        <img alt="Client" class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a stylish man with shoulder-length wavy hair and a rugged appearance, photographed in a low-key studio setting. The lighting highlights the texture of his hair and facial features against a dark, moody background. The overall tone is sophisticated and professional, suitable for a premium barbering brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJsYMAeJ3r5pnbI0354TD9MlP5U_sqSv7Fiey1Ou6B6oLzxB22sY_cAE2GbpWJJMTua4vLdCdabj8J_SelDhbVirkiiQHP7B7SB9pz_wopznRZh2wLdC9cQrTUJ_0pKojNYoOy2ZF13z8VHS-M1lbKQpT72b4Jc-Yg40nQFq7fZwKEpQuOF6n4kF1y-BRyZdUku1KfdhvtgY1iWHeiY-zj88GkKaiD4g1nKVtGRUAEMPxqLWQ9-R1YHmoRW2jO66-V5j_8a-MkxjeT"/>
+                        <span class="absolute -bottom-1 -right-1 bg-surface-container-high text-[10px] font-bold border border-primary text-primary w-5 h-5 flex items-center justify-center rounded-full">2</span>
+                    </div>
+                    <div class="flex-grow">
+                        <h4 class="font-label-md text-label-md text-on-surface">Marcos Silva</h4>
+                        <p class="font-label-sm text-label-sm text-outline">Barba Imperial</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-label-md text-label-md text-on-surface">16:30</span>
+                        <p class="font-label-sm text-label-sm text-primary">Confirmado</p>
+                    </div>
+                </div>
+                <!-- Queue Item 2 -->
+                <div onclick="window.location.href='fila.html'" class="flex items-center gap-md p-sm rounded-lg hover:bg-surface-container-high transition-all cursor-pointer border-b border-outline-variant/30 pb-md last:border-0">
+                    <div class="relative">
+                        <img alt="Client" class="w-12 h-12 rounded-full object-cover" data-alt="Close up of a gentleman with short, neatly groomed black hair and a clean-shaven face, smiling subtly. The background features warm wood and leather elements of a high-end salon. The photography style is clear and cinematic, with professional depth of field and elegant warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7khQWF5FSiATtPyw6vqPjVxiGhWozExeW1Vo6INoaEg-UBFblaICjJaLMUytKJK977Z1GUiWVfovskK5JhKiU81h1GP3AIeHgOMW01CTRYT5EJDzGAQi6ByQbUI9gQt5YTfnGddD96ZmJyChAcYyPrY896UPmSRWpWfLqUzwu82LC_7ahMC2zcKy96ixYdpZy3-eDq97QHOu-CfTUOFYmUbViMWXf3LsFTUbt1VZNZb0zgIPJVn1lCDcIFCgegHbLkUk63SIudX-8"/>
+                        <span class="absolute -bottom-1 -right-1 bg-surface-container-high text-[10px] font-bold border border-outline text-outline w-5 h-5 flex items-center justify-center rounded-full">3</span>
+                    </div>
+                    <div class="flex-grow">
+                        <h4 class="font-label-md text-label-md text-on-surface">Roberto Costa</h4>
+                        <p class="font-label-sm text-label-sm text-outline">Corte Clássico Tesoura</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-label-md text-label-md text-on-surface">17:15</span>
+                        <p class="font-label-sm text-label-sm text-outline">Pendente</p>
+                    </div>
+                </div>
+                <!-- Queue Item 3 -->
+                <div onclick="window.location.href='fila.html'" class="flex items-center gap-md p-sm rounded-lg hover:bg-surface-container-high transition-all cursor-pointer border-b border-outline-variant/30 pb-md last:border-0">
+                    <div class="relative">
+                        <img alt="Client" class="w-12 h-12 rounded-full object-cover" data-alt="Headshot of a middle-aged man with salt-and-pepper hair and a precisely trimmed beard, looking elegant in a charcoal suit. The lighting is dramatic, coming from one side to create depth and emphasize professional grooming. The aesthetic is upscale and timeless." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC9noF0BWARmm8jJ7-BF1PqDHI4JHv3z-TRcLtIccicjNzJOrTVPGV6Id9vfQU_vHcCO1RFeh_DxtnGc3zVe7bINHYWUXI6dobKGlSsYuq_js5WSmLQsLXU0cQiLOLWCt0tW1EfleBvvj0hGHYL-n938IPZMwc8qQ944j8c2Q3YIH0mTeFrj6Gk4NY7Jskemvxh3bRBxuoH-54r8Bw_lwGgnaJFQ5x-6lNQFmCZKa-9HZxnleafCiTMAt-JCd9Jse-N8Azk0wVX4fk"/>
+                        <span class="absolute -bottom-1 -right-1 bg-surface-container-high text-[10px] font-bold border border-outline text-outline w-5 h-5 flex items-center justify-center rounded-full">4</span>
+                    </div>
+                    <div class="flex-grow">
+                        <h4 class="font-label-md text-label-md text-on-surface">Luiz Felipe</h4>
+                        <p class="font-label-sm text-label-sm text-outline">Combo VIP (Corte + Barba + Spa)</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-label-md text-label-md text-on-surface">18:00</span>
+                        <p class="font-label-sm text-label-sm text-primary">Confirmado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (Shared Component Identity) -->
+    <footer class="mt-xl py-md flex flex-col md:flex-row justify-between items-center border-t border-outline-variant bg-surface-container-lowest text-outline">
+        <div class="flex items-center gap-md mb-md md:mb-0">
+            <span class="font-label-md text-label-md text-on-surface">BarberFlow Elite</span>
+            <span class="font-body-md text-body-md">© 2024 BarberFlow Elite. All rights reserved.</span>
+        </div>
+        <div class="flex gap-lg">
+            <a class="font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+            <a class="font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+        </div>
+    </footer>
+</main>
+
+<script>
+    // Status pill toggle interaction
+    const statusPill = document.querySelector('.bg-surface-container-high');
+    if(statusPill) {
+        statusPill.addEventListener('click', () => {
+            const colors = ['bg-green-500', 'bg-red-500', 'bg-yellow-500'];
+            const labels = ['Online', 'Atendendo', 'Pausa'];
+            const indicator = statusPill.querySelector('span:first-child');
+            const text = statusPill.querySelector('span:nth-child(2)');
+            
+            let currentIdx = labels.indexOf(text.textContent);
+            let nextIdx = (currentIdx + 1) % labels.length;
+            
+            indicator.className = `w-3 h-3 ${colors[nextIdx]} rounded-full ${nextIdx === 0 ? 'animate-pulse' : ''}`;
+            text.textContent = labels[nextIdx];
+        });
+    }
+
+    // Bento cards hover animations
+    document.querySelectorAll('.bento-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-4px)';
+            card.style.boxShadow = '0 15px 30px -10px rgba(212, 175, 55, 0.1)';
+            card.style.borderColor = '#f2ca50';
+            card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = 'none';
+            card.style.borderColor = '#2A2A2A';
+        });
+    });
+</script>
+</body>
+</html>

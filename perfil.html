@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configuração de Perfil | BarberFlow Elite</title>
+<meta name="description" content="Gerencie seu perfil profissional, portfólio e especialidades no BarberFlow Elite."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "inverse-primary": "#735c00",
+          "inverse-on-surface": "#313030",
+          "surface-tint": "#e9c349",
+          "outline-variant": "#4d4635",
+          "on-secondary-fixed-variant": "#77302d",
+          "on-tertiary-container": "#454544",
+          "primary-fixed-dim": "#e9c349",
+          "on-primary-fixed": "#241a00",
+          "inverse-surface": "#e5e2e1",
+          "error": "#ffb4ab",
+          "surface": "#131313",
+          "background": "#131313",
+          "tertiary-container": "#b4b2b2",
+          "secondary-fixed": "#ffdad7",
+          "on-background": "#e5e2e1",
+          "tertiary-fixed-dim": "#c8c6c5",
+          "on-surface-variant": "#d0c5af",
+          "surface-container-highest": "#353534",
+          "secondary-fixed-dim": "#ffb3ad",
+          "on-primary-fixed-variant": "#574500",
+          "on-tertiary-fixed": "#1b1b1c",
+          "tertiary-fixed": "#e5e2e1",
+          "on-tertiary-fixed-variant": "#474746",
+          "on-error-container": "#ffdad6",
+          "primary-container": "#d4af37",
+          "on-secondary-fixed": "#3d0506",
+          "outline": "#99907c",
+          "on-error": "#690005",
+          "on-secondary": "#5a1a19",
+          "on-primary-container": "#554300",
+          "on-surface": "#e5e2e1",
+          "tertiary": "#d0cdcd",
+          "surface-container-lowest": "#0e0e0e",
+          "error-container": "#93000a",
+          "surface-container": "#201f1f",
+          "secondary": "#ffb3ad",
+          "on-secondary-container": "#ff9e97",
+          "surface-container-high": "#2a2a2a",
+          "surface-bright": "#393939",
+          "on-tertiary": "#303030",
+          "surface-variant": "#353534",
+          "surface-container-low": "#1c1b1b",
+          "primary-fixed": "#ffe088",
+          "surface-dim": "#131313",
+          "secondary-container": "#7a322f",
+          "on-primary": "#3c2f00",
+          "primary": "#f2ca50"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "sm": "12px",
+          "margin-desktop": "48px",
+          "base": "8px",
+          "md": "24px",
+          "lg": "40px",
+          "margin-mobile": "16px",
+          "xs": "4px",
+          "gutter": "24px",
+          "xl": "64px"
+        },
+        "fontFamily": {
+          "label-sm": ["Inter"],
+          "headline-lg-mobile": ["Playfair Display"],
+          "label-md": ["Inter"],
+          "headline-md": ["Playfair Display"],
+          "body-lg": ["Inter"],
+          "headline-lg": ["Playfair Display"],
+          "headline-xl": ["Playfair Display"],
+          "body-md": ["Inter"]
+        },
+        "fontSize": {
+          "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+          "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+          "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+          "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: #d4af37;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #131313; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+  .portfolio-img { transition: transform 0.3s ease; }
+  .portfolio-img:hover { transform: scale(1.03); }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  .btn-save-glow {
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+  }
+  .btn-save-glow:hover {
+    box-shadow: 0 6px 28px rgba(212, 175, 55, 0.55);
+  }
+
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+  }
+  .tag-chip {
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+  }
+  .tag-chip:hover {
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35);
+    transform: translateY(-1px);
+  }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- TopAppBar -->
+<header class="fixed top-0 z-50 flex justify-between items-center w-full px-margin-desktop h-20 bg-surface border-b border-outline-variant">
+  <div class="font-headline-md text-headline-md font-bold text-primary tracking-tight">BarberFlow Elite</div>
+  <div class="flex items-center gap-md">
+    <button class="material-symbols-outlined hover:text-primary transition-colors" onclick="window.location.href='notificacoes.html'" title="Notificações">notifications</button>
+    <button class="material-symbols-outlined text-primary transition-colors" title="Meu Perfil (Ativo)">person</button>
+    <button class="material-symbols-outlined hover:text-primary transition-colors" title="Configurações">settings</button>
+  </div>
+</header>
+
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col pt-20 pb-8 bg-surface-container-low border-r border-outline-variant w-64 hidden md:flex">
+  <div class="px-6 py-8 flex flex-col items-center border-b border-outline-variant/40 mb-2">
+    <div class="w-20 h-20 rounded-full border-2 border-primary p-1 mb-4 overflow-hidden">
+      <img
+        alt="Alexander Pierce"
+        class="w-full h-full object-cover rounded-full"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuApOFbH_5i2M-WQVfOXKxdyKzEcoNSG449IZJdTzw72n_MfMIYAtUrklcgFurg8nRwjv67TVNXef7tQCzzr55LU6TGrj-yYqLGCgWOcfdx9QCBHkZ8-uUFePPk5LVrwB-oimncYAtYqqk-vBINIDi38VkxMkGlg7jWV3Y1WhZ6HH5YPIZ5JhfBq6Jt7Ds3Gdd1sQWYslyXXoKaJ7F_oP0HbbBtZsVePyZNOEb4H8LhXtbL1nk8UK3t9tJVxx2KdJ3bs4nJbzaIO1ib7"
+      />
+    </div>
+    <h3 class="font-headline-md text-[18px] text-primary">Alexander Pierce</h3>
+    <p class="font-label-md text-label-md text-on-surface-variant">Master Barber</p>
+  </div>
+
+  <div class="flex-1 space-y-1 px-3 py-2">
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="painel.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class="font-label-md text-label-md">Dashboard</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="agenda.html">
+      <span class="material-symbols-outlined">calendar_today</span>
+      <span class="font-label-md text-label-md">Agenda</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="financas.html">
+      <span class="material-symbols-outlined">payments</span>
+      <span class="font-label-md text-label-md">Financeiro</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="agendamento.html">
+      <span class="material-symbols-outlined">content_cut</span>
+      <span class="font-label-md text-label-md">Serviços</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="relatorios.html">
+      <span class="material-symbols-outlined">bar_chart</span>
+      <span class="font-label-md text-label-md">Relatórios</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="fila.html">
+      <span class="material-symbols-outlined">people_alt</span>
+      <span class="font-label-md text-label-md">Fila Virtual</span>
+    </a>
+    <!-- Active: Perfil -->
+    <a class="flex items-center gap-4 text-primary font-bold px-4 py-3 rounded-lg bg-surface-container border-l-2 border-primary" href="perfil.html">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">manage_accounts</span>
+      <span class="font-label-md text-label-md">Meu Perfil</span>
+    </a>
+  </div>
+
+  <div class="px-3 mb-lg">
+    <button class="w-full py-3 bg-primary text-on-primary font-bold rounded-lg hover:brightness-110 transition-all flex items-center justify-center gap-2" onclick="window.location.href='agendamento.html'">
+      <span class="material-symbols-outlined text-[20px]" style="color: #3c2f00">add</span>
+      Novo Agendamento
+    </button>
+  </div>
+
+  <div class="px-3 pt-4 border-t border-outline-variant">
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="notificacoes.html">
+      <span class="material-symbols-outlined">notifications_active</span>
+      <span class="font-label-md text-label-md">Notificações</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="home.html">
+      <span class="material-symbols-outlined">store</span>
+      <span class="font-label-md text-label-md">Ver Loja</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface px-4 py-3 rounded-lg hover:bg-surface-container transition-all" href="onboarding.html">
+      <span class="material-symbols-outlined">logout</span>
+      <span class="font-label-md text-label-md">Sair</span>
+    </a>
+  </div>
+</nav>
+
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-20 pb-32">
+  <div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop py-lg">
+
+    <!-- Page Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-xl">
+      <div>
+        <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Configuração de Perfil</h1>
+        <p class="text-on-surface-variant font-body-md">Gerencie sua identidade digital e portfólio para atrair novos clientes.</p>
+      </div>
+      <button class="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary font-bold rounded-lg hover:bg-primary/10 transition-all" onclick="window.location.href='home.html'">
+        <span class="material-symbols-outlined text-[20px]">visibility</span>
+        Ver Perfil Público
+      </button>
+    </div>
+
+    <!-- Bento Layout Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+
+      <!-- ── Profile Identity Card ── -->
+      <div class="lg:col-span-4 bg-surface-container-low border border-outline-variant p-lg rounded-xl flex flex-col items-center text-center hover:border-primary/30 transition-colors">
+        <div class="relative group mb-md">
+          <div class="w-40 h-40 rounded-full border-4 border-primary p-1 overflow-hidden">
+            <img
+              alt="Alexander Pierce"
+              class="w-full h-full object-cover rounded-full portfolio-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4xaBYbOU4xVtFE0dNDyl7-0CixWoTMOrQoinKTeidLV3pytiKtgDIez9a_jQUbtI5B3LrxoGASQ2Xfpd0zBj7EzTLdg1J9CnbqIznd85Dv0V1-yF4ntO_MlyN4DHZm8NcCwWKbj-toQ2L97ngR_3Wm5wjZ1e4zUgd5xKzWVjDiRSQgm3JLsyX_lBwnb0PHKRAhdavBedGJyStG2TipM46_olIghBjIuO4AKUg4T8fAHuQbuXmBoHI75yxO2DvcZSOH2XibqE45Gdc"
+            />
+          </div>
+          <button class="absolute bottom-1 right-1 bg-primary text-on-primary p-2 rounded-full shadow-lg hover:scale-110 transition-transform material-symbols-outlined" style="color:#3c2f00">
+            photo_camera
+          </button>
+        </div>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-xs">Identidade Visual</h2>
+        <p class="text-on-surface-variant font-label-md mb-lg text-[13px]">Recomendado: 800×800px · JPG ou PNG</p>
+
+        <!-- Stats Row -->
+        <div class="w-full grid grid-cols-3 gap-2 mb-lg">
+          <div class="bg-surface-container rounded-lg py-2 border border-outline-variant/40 text-center">
+            <p class="text-primary font-headline-md text-[22px]">4.9</p>
+            <p class="text-on-surface-variant text-[10px] uppercase tracking-wider">Rating</p>
+          </div>
+          <div class="bg-surface-container rounded-lg py-2 border border-outline-variant/40 text-center">
+            <p class="text-primary font-headline-md text-[22px]">12+</p>
+            <p class="text-on-surface-variant text-[10px] uppercase tracking-wider">Anos</p>
+          </div>
+          <div class="bg-surface-container rounded-lg py-2 border border-outline-variant/40 text-center">
+            <p class="text-primary font-headline-md text-[22px]">847</p>
+            <p class="text-on-surface-variant text-[10px] uppercase tracking-wider">Clientes</p>
+          </div>
+        </div>
+
+        <button class="w-full py-3 bg-surface-container-high border border-outline-variant text-on-surface font-bold rounded-lg hover:border-primary hover:text-primary transition-all">
+          Alterar Foto de Perfil
+        </button>
+      </div>
+
+      <!-- ── General Info Card ── -->
+      <div class="lg:col-span-8 bg-surface-container-low border border-outline-variant p-lg rounded-xl hover:border-primary/30 transition-colors">
+        <h2 class="font-headline-md text-headline-md text-primary mb-lg flex items-center gap-2">
+          <span class="material-symbols-outlined">person_outline</span>
+          Informações Gerais
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-md">
+          <div class="space-y-2">
+            <label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider text-[11px]">Nome Completo</label>
+            <input
+              class="w-full bg-surface border border-outline focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-on-surface transition-all outline-none"
+              type="text"
+              id="input-nome"
+              value="Alexander Pierce"
+            />
+          </div>
+          <div class="space-y-2">
+            <label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider text-[11px]">Título Profissional</label>
+            <input
+              class="w-full bg-surface border border-outline focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-on-surface transition-all outline-none"
+              type="text"
+              id="input-titulo"
+              value="Master Barber"
+            />
+          </div>
+        </div>
+        <div class="space-y-2">
+          <label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider text-[11px]">Biografia Profissional</label>
+          <textarea
+            class="w-full bg-surface border border-outline focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-on-surface transition-all outline-none resize-none"
+            id="input-bio"
+            rows="5"
+          >Especialista em visagismo masculino e técnicas clássicas de barbearia. Com mais de 12 anos de experiência no mercado de luxo, foco na precisão do corte e na experiência relaxante do cliente. Apaixonado pela arte de transformar estilos e elevar a confiança de cada homem que senta em minha cadeira.</textarea>
+          <div class="flex justify-end">
+            <span class="text-[11px] text-on-surface-variant" id="bio-counter">0 / 400 caracteres</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Specialties & Experience ── -->
+      <div class="lg:col-span-7 bg-surface-container-low border border-outline-variant p-lg rounded-xl hover:border-primary/30 transition-colors">
+        <h2 class="font-headline-md text-headline-md text-primary mb-lg flex items-center gap-2">
+          <span class="material-symbols-outlined">verified</span>
+          Especialidades &amp; Experiência
+        </h2>
+        <div class="space-y-lg">
+          <div>
+            <label class="font-label-md text-label-md text-on-surface-variant block mb-sm uppercase tracking-wider text-[11px]">Tags de Especialidade</label>
+            <div class="flex flex-wrap gap-2" id="tags-container">
+              <span class="tag-chip bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-lg border border-outline-variant flex items-center gap-2 cursor-default">
+                Fade
+                <button class="material-symbols-outlined text-[16px] hover:text-red-400 transition-colors" onclick="removeTag(this)" style="color: inherit">close</button>
+              </span>
+              <span class="tag-chip bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-lg border border-outline-variant flex items-center gap-2 cursor-default">
+                Beard Sculpting
+                <button class="material-symbols-outlined text-[16px] hover:text-red-400 transition-colors" onclick="removeTag(this)" style="color: inherit">close</button>
+              </span>
+              <span class="tag-chip bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-lg border border-outline-variant flex items-center gap-2 cursor-default">
+                Classic Cuts
+                <button class="material-symbols-outlined text-[16px] hover:text-red-400 transition-colors" onclick="removeTag(this)" style="color: inherit">close</button>
+              </span>
+              <span class="tag-chip bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-lg border border-outline-variant flex items-center gap-2 cursor-default">
+                Hot Towel Shave
+                <button class="material-symbols-outlined text-[16px] hover:text-red-400 transition-colors" onclick="removeTag(this)" style="color: inherit">close</button>
+              </span>
+            </div>
+            <div class="flex gap-2 mt-sm">
+              <input
+                class="bg-surface border border-outline focus:border-primary rounded-lg px-3 py-2 text-on-surface text-sm outline-none w-44 transition-all"
+                placeholder="Nova especialidade..."
+                id="tag-input"
+                type="text"
+                onkeydown="if(event.key==='Enter') addTag()"
+              />
+              <button
+                class="border border-dashed border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary/5 transition-all flex items-center gap-1 font-label-md"
+                onclick="addTag()"
+              >
+                <span class="material-symbols-outlined text-[20px]">add</span> Adicionar
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+            <div class="space-y-2">
+              <label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider text-[11px]">Anos de Experiência</label>
+              <input
+                class="w-full bg-surface border border-outline focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-on-surface outline-none"
+                type="number"
+                min="0"
+                max="60"
+                value="12"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider text-[11px]">Instagram Username</label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-bold text-sm" style="color:#d0c5af">@</span>
+                <input
+                  class="w-full bg-surface border border-outline focus:border-primary focus:ring-1 focus:ring-primary rounded-lg pl-8 pr-4 py-3 text-on-surface outline-none"
+                  type="text"
+                  value="alexander.cuts"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Working Hours Row -->
+          <div class="grid grid-cols-2 gap-md">
+            <div class="space-y-2">
+              <label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider text-[11px]">Horário de Início</label>
+              <input
+                class="w-full bg-surface border border-outline focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-on-surface outline-none"
+                type="time"
+                value="09:00"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider text-[11px]">Horário de Fim</label>
+              <input
+                class="w-full bg-surface border border-outline focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-on-surface outline-none"
+                type="time"
+                value="19:00"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Media Gallery / Portfolio ── -->
+      <div class="lg:col-span-5 bg-surface-container-low border border-outline-variant p-lg rounded-xl hover:border-primary/30 transition-colors">
+        <div class="flex justify-between items-center mb-lg">
+          <h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined">collections</span>
+            Portfólio
+          </h2>
+          <span class="text-label-sm text-on-surface-variant bg-surface-container px-3 py-1 rounded-full border border-outline-variant text-[11px]">5 / 12 fotos</span>
+        </div>
+        <div class="grid grid-cols-3 gap-sm" id="portfolio-grid">
+          <div class="aspect-square rounded-lg overflow-hidden relative group">
+            <img alt="Skin Fade" class="w-full h-full object-cover portfolio-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4pa-JCwV5dX_5q6c3BJl0U_HkIcUVoBFNwsYbPE6v29uQUq5jfCKMgXWOWVI3Ly6-EzXHSBVuACoaZlSND_r-iz6HSxG3d4eaIgP8HDVm3zLPlbqxz4tfkOFJ5M4cuFcts0lmNcXESuhN_KvHqEVer12sJcU2l4vZ41Oz1EGC5OCfv_bDWjYIzt4OeVGKVzbrACZPmEZjQM54Vm5sT7fs2cDJFC7mr3Izyy36ZMhCnRu2H2xUZSjswxBWmx5PEMSEVRDBhwByfOGg"/>
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+              <button class="material-symbols-outlined text-red-400 bg-surface-container-high rounded-full p-1" onclick="removePortfolioImg(this)" style="color: #f87171">delete</button>
+            </div>
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden relative group">
+            <img alt="Beard Sculpt" class="w-full h-full object-cover portfolio-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCINB9jjbv2Z0GZU0f2gLUxCOhQCUuw0hWMeVQr4uHxg2KsLgag7QBMrsIoo2AJKmYTBhEjYqdDBMxVLaRm2OIIbP3wmsGqBCIHofzD3xgmX-s4MyuIMAzcuEwdxs10KHoyqeZJbgcO92mBsIgdut28Um0xuPInG3urMsK6oAh-3Z7EeryLvDtenus8fq8o-fwv_s2VCa97fA6jOxd24P3AJQATUzth4nfilcnkfrshx6qgp6dqD9YrtEqi-oGLlyqHNQEM-YXDbWrG"/>
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+              <button class="material-symbols-outlined text-red-400 bg-surface-container-high rounded-full p-1" onclick="removePortfolioImg(this)" style="color: #f87171">delete</button>
+            </div>
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden relative group">
+            <img alt="Straight Razor" class="w-full h-full object-cover portfolio-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrbMtJ-Pq5xptXWreEAaDqXVEPKnEeQpDyEihimvZO53F4pFqmSnJGvtt02A0j8aU942jw1Sfs7S6FsPsCTq_rwgW39j5jMNpO6uWDEUVuolQbTpe0SOzI7IYqWMdUrKoli7NXZ3tfOT_Uin8RoAiPvj_DWDHKj7tntkvWL19_fADVeX2uFN7u_YkogCyN8r45ytdJoy9ZlxOp2hHXNtRyCjzICTwJGi8Rz95oukT_EQ9jjnofxRmfRGeot3o8it1r7AAjgYZm7MqU"/>
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+              <button class="material-symbols-outlined text-red-400 bg-surface-container-high rounded-full p-1" onclick="removePortfolioImg(this)" style="color: #f87171">delete</button>
+            </div>
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden relative group">
+            <img alt="Pompadour Style" class="w-full h-full object-cover portfolio-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmug2ABmiWJTRtlyeSbz_BUqLucJv14Gj_cJT0VTOcF0M9rn5_m4kT4r6caUVA9m12y4mBZLkXVwtiSx1_Y9T7VvajIxMHwcnppo4PxNBozsYcf2xJsCT8PdR3oE1iL7okn2OnwLb5jdHRoGqaF8cL0FfYYaVawpuzoHtpfaSXuN9VFsWo6T_2zCUvxEEmX7VtaFzaExBNj3VRbYAI9M5a3x2g6hYoe9AmoSeiqqm5aGEq2heYYgL7ZEM35KnHYdGjr-etUKzHxi_i"/>
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+              <button class="material-symbols-outlined text-red-400 bg-surface-container-high rounded-full p-1" onclick="removePortfolioImg(this)" style="color: #f87171">delete</button>
+            </div>
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden relative group">
+            <img alt="Styling Session" class="w-full h-full object-cover portfolio-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAts3u-KmcZr49drBiqxl_jvv6Ll9BdguBeFUTzhPAf61jhaYhpwKdSaSO_k7YGUL0BNApvWQvN0EkWaLDKdSenkjC4rthXDEen3FjAkla4FAFFHlcjKR5WWsFEjMMgCytHMoFZhsiUO5IDRmd_HvJRT9hWvfHyQ3J2w-zIKYCDhOMW_UC3QUKGIQ_Qd6IFKGKzUAvBZn9_C32QFbQJCrU7oVm2QhUeZDUC0t_IatI7ztwa6nfBwuiukP3Z9aLA18LdYTvm897xFfj2"/>
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+              <button class="material-symbols-outlined text-red-400 bg-surface-container-high rounded-full p-1" onclick="removePortfolioImg(this)" style="color: #f87171">delete</button>
+            </div>
+          </div>
+          <!-- Add New Slot -->
+          <button class="aspect-square rounded-lg border-2 border-dashed border-outline-variant hover:border-primary hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-2 group" id="add-photo-btn">
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">add_photo_alternate</span>
+            <span class="text-label-sm text-on-surface-variant group-hover:text-primary transition-colors text-[11px]">Adicionar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Availability Banner ── -->
+      <div class="lg:col-span-12 bg-surface-container-low border border-outline-variant rounded-xl p-md flex flex-col md:flex-row md:items-center justify-between gap-md hover:border-primary/30 transition-colors">
+        <div class="flex items-center gap-md">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined">toggle_on</span>
+          </div>
+          <div>
+            <p class="font-label-md text-on-surface">Status de Disponibilidade</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">Controle se você aparece como disponível para novos agendamentos na plataforma.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-md">
+          <span class="text-sm text-on-surface-variant" id="availability-label">Disponível</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input checked class="sr-only" id="availability-toggle" type="checkbox"/>
+            <div class="w-14 h-7 bg-primary rounded-full transition-colors relative" id="avail-track">
+              <div class="absolute left-1 top-1 bg-on-primary w-5 h-5 rounded-full transition-transform duration-200" id="avail-dot" style="background:#3c2f00; transform: translateX(28px)"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- Bottom Action Bar -->
+<div class="fixed bottom-0 right-0 left-0 md:left-64 h-24 bg-surface-container border-t border-outline-variant px-margin-mobile md:px-margin-desktop flex items-center justify-end gap-md z-40">
+  <button class="px-8 py-3 text-on-surface-variant font-bold hover:text-on-surface transition-colors rounded-lg hover:bg-surface-variant" onclick="window.location.href='painel.html'">
+    Descartar Alterações
+  </button>
+  <button
+    class="px-10 py-3 bg-primary text-on-primary font-bold rounded-lg btn-save-glow hover:brightness-110 active:scale-95 transition-all"
+    id="save-btn"
+  >
+    Salvar Alterações
+  </button>
+</div>
+
+<script>
+  // ── Bio character counter ──
+  const bioArea = document.getElementById('input-bio');
+  const bioCounter = document.getElementById('bio-counter');
+  function updateCounter() {
+    const len = bioArea.value.length;
+    bioCounter.textContent = `${len} / 400 caracteres`;
+    bioCounter.style.color = len > 380 ? '#f87171' : '';
+  }
+  bioArea.addEventListener('input', updateCounter);
+  updateCounter();
+
+  // ── Tag management ──
+  function removeTag(btn) {
+    btn.closest('span').remove();
+  }
+  function addTag() {
+    const input = document.getElementById('tag-input');
+    const val = input.value.trim();
+    if (!val) return;
+    const span = document.createElement('span');
+    span.className = 'tag-chip bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-lg border border-outline-variant flex items-center gap-2 cursor-default';
+    span.innerHTML = `${val} <button class="material-symbols-outlined text-[16px] hover:text-red-400 transition-colors" onclick="removeTag(this)" style="color: inherit">close</button>`;
+    document.getElementById('tags-container').insertBefore(span, document.getElementById('tags-container').lastElementChild);
+    input.value = '';
+    input.focus();
+  }
+
+  // ── Portfolio delete ──
+  function removePortfolioImg(btn) {
+    btn.closest('.group').remove();
+  }
+
+  // ── Availability toggle ──
+  const availToggle = document.getElementById('availability-toggle');
+  const availTrack  = document.getElementById('avail-track');
+  const availDot    = document.getElementById('avail-dot');
+  const availLabel  = document.getElementById('availability-label');
+  availToggle.addEventListener('change', () => {
+    if (availToggle.checked) {
+      availTrack.classList.replace('bg-surface-variant', 'bg-primary');
+      availDot.style.transform = 'translateX(28px)';
+      availLabel.textContent = 'Disponível';
+    } else {
+      availTrack.classList.replace('bg-primary', 'bg-surface-variant');
+      availDot.style.transform = 'translateX(0)';
+      availLabel.textContent = 'Indisponível';
+    }
+  });
+
+  // ── Save button micro-interaction ──
+  const saveBtn = document.getElementById('save-btn');
+  saveBtn.addEventListener('click', () => {
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = `<span class="flex items-center gap-2">
+      <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      Salvando...
+    </span>`;
+    saveBtn.disabled = true;
+
+    setTimeout(() => {
+      saveBtn.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined" style="color:#3c2f00">check_circle</span> Salvo com Sucesso!</span>`;
+      saveBtn.classList.remove('bg-primary');
+      saveBtn.classList.add('bg-green-600');
+      saveBtn.style.boxShadow = '0 4px 20px rgba(22, 163, 74, 0.4)';
+
+      setTimeout(() => {
+        saveBtn.innerHTML = originalText;
+        saveBtn.classList.add('bg-primary');
+        saveBtn.classList.remove('bg-green-600');
+        saveBtn.style.boxShadow = '';
+        saveBtn.disabled = false;
+      }, 2500);
+    }, 1500);
+  });
+</script>
+</body>
+</html>
