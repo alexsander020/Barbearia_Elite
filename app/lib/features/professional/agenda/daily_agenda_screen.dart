@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../src/theme/app_colors.dart';
-import '../../../src/core/app_constants.dart';
 import '../../../src/core/database/firestore_service.dart';
 import '../../../src/core/models/appointment_model.dart';
 
@@ -49,7 +48,6 @@ class DailyAgendaScreen extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-
             // ── Seletor de Data Horizontal ──
             Container(
               padding: const EdgeInsets.symmetric(vertical: 14),
@@ -60,7 +58,7 @@ class DailyAgendaScreen extends ConsumerWidget {
               child: SizedBox(
                 height: 75,
                 child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.marginMobile),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   scrollDirection: Axis.horizontal,
                   itemCount: 14,
                   separatorBuilder: (_, __) => const SizedBox(width: 10),
@@ -92,18 +90,18 @@ class DailyAgendaScreen extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(dayName,
-                              style: TextStyle(
-                                color: isSelected ? AppColors.onPrimary : AppColors.onSurfaceVariant,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              )),
+                                style: TextStyle(
+                                  color: isSelected ? AppColors.onPrimary : AppColors.onSurfaceVariant,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                )),
                             const SizedBox(height: 4),
                             Text(dayNumber,
-                              style: TextStyle(
-                                color: isSelected ? AppColors.onPrimary : AppColors.onSurface,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
+                                style: TextStyle(
+                                  color: isSelected ? AppColors.onPrimary : AppColors.onSurface,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                )),
                           ],
                         ),
                       ),
@@ -126,7 +124,7 @@ class DailyAgendaScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('${appts.length} agendamentos',
-                        style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13)),
+                          style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13)),
                       Text(
                         'Total: R\$ ${total.toStringAsFixed(2).replaceAll('.', ',')}',
                         style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 13),
@@ -158,7 +156,7 @@ class DailyAgendaScreen extends ConsumerWidget {
                     return _buildEmptyDay(selectedDate);
                   }
                   return ListView.builder(
-                    padding: const EdgeInsets.all(AppSpacing.marginMobile),
+                    padding: const EdgeInsets.all(16),
                     itemCount: appointments.length,
                     itemBuilder: (context, index) {
                       return _TimelineItem(
@@ -187,7 +185,7 @@ class DailyAgendaScreen extends ConsumerWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.surfaceContainerLow,
               shape: BoxShape.circle,
             ),
@@ -207,13 +205,114 @@ class DailyAgendaScreen extends ConsumerWidget {
 }
 
 // ── Item da Timeline ──
-class _TimelineItem extends StatelessWidget {
+class _TimelineItem extends ConsumerWidget {
   const _TimelineItem({required this.appointment, required this.isLast});
   final AppointmentModel appointment;
   final bool isLast;
 
+  void _showActions(BuildContext context, WidgetRef ref) {
+    final status = appointment.status;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surfaceContainer,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: AppColors.outlineVariant,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Agendamento de ${appointment.clientName}',
+                      style: const TextStyle(
+                        color: AppColors.onSurface,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${appointment.serviceName} • R\$ ${appointment.price.toStringAsFixed(2).replaceAll('.', ',')}',
+                      style: const TextStyle(
+                        color: AppColors.onSurfaceVariant,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(color: AppColors.outlineVariant, height: 1),
+              if (status == 'pending') ...[
+                ListTile(
+                  leading: const Icon(Icons.check_circle_outline, color: Colors.green),
+                  title: const Text('Confirmar Agendamento', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await ref.read(firestoreServiceProvider).updateAppointmentStatus(appointment.id, 'confirmed');
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.cancel_outlined, color: AppColors.error),
+                  title: const Text('Cancelar Agendamento', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await ref.read(firestoreServiceProvider).updateAppointmentStatus(appointment.id, 'canceled');
+                  },
+                ),
+              ],
+              if (status == 'confirmed') ...[
+                ListTile(
+                  leading: const Icon(Icons.done_all, color: AppColors.primary),
+                  title: const Text('Finalizar Serviço', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await ref.read(firestoreServiceProvider).updateAppointmentStatus(appointment.id, 'completed');
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.cancel_outlined, color: AppColors.error),
+                  title: const Text('Cancelar Agendamento', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await ref.read(firestoreServiceProvider).updateAppointmentStatus(appointment.id, 'canceled');
+                  },
+                ),
+              ],
+              if (status == 'completed' || status == 'canceled') ...[
+                ListTile(
+                  leading: const Icon(Icons.restart_alt, color: AppColors.outline),
+                  title: const Text('Voltar para Pendente', style: TextStyle(color: AppColors.onSurface)),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await ref.read(firestoreServiceProvider).updateAppointmentStatus(appointment.id, 'pending');
+                  },
+                ),
+              ],
+              const SizedBox(height: 12),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final timeStr = DateFormat('HH:mm').format(appointment.dateTime);
     final isCanceled = appointment.status == 'canceled';
 
@@ -249,11 +348,11 @@ class _TimelineItem extends StatelessWidget {
               children: [
                 const SizedBox(height: 14),
                 Text(timeStr,
-                  style: TextStyle(
-                    color: isCanceled ? AppColors.outline : AppColors.onSurface,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  )),
+                    style: TextStyle(
+                      color: isCanceled ? AppColors.outline : AppColors.onSurface,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    )),
               ],
             ),
           ),
@@ -286,59 +385,62 @@ class _TimelineItem extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(bottom: isLast ? 8 : 20, top: 6),
-              child: Container(
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: AppColors.surfaceContainer,
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                    color: isCanceled
-                        ? AppColors.error.withValues(alpha: 0.4)
-                        : AppColors.outlineVariant,
+              child: GestureDetector(
+                onTap: () => _showActions(context, ref),
+                child: Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: AppColors.surfaceContainer,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: isCanceled
+                          ? AppColors.error.withValues(alpha: 0.4)
+                          : AppColors.outlineVariant,
+                    ),
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(appointment.clientName,
-                            style: TextStyle(
-                              color: isCanceled ? AppColors.outline : AppColors.onSurface,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              decoration: isCanceled ? TextDecoration.lineThrough : null,
-                            ),
-                            overflow: TextOverflow.ellipsis),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: statusColor.withValues(alpha: 0.12),
-                            borderRadius: BorderRadius.circular(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(appointment.clientName,
+                                style: TextStyle(
+                                  color: isCanceled ? AppColors.outline : AppColors.onSurface,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: isCanceled ? TextDecoration.lineThrough : null,
+                                ),
+                                overflow: TextOverflow.ellipsis),
                           ),
-                          child: Text(statusLabel,
-                            style: TextStyle(color: statusColor, fontSize: 10, fontWeight: FontWeight.bold)),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const Icon(Icons.content_cut_rounded, color: AppColors.onSurfaceVariant, size: 13),
-                        const SizedBox(width: 6),
-                        Text(appointment.serviceName,
-                          style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13)),
-                        const Spacer(),
-                        Text(
-                          'R\$ ${appointment.price.toStringAsFixed(2).replaceAll('.', ',')}',
-                          style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ],
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: statusColor.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(statusLabel,
+                                style: TextStyle(color: statusColor, fontSize: 10, fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Icon(Icons.content_cut_rounded, color: AppColors.onSurfaceVariant, size: 13),
+                          const SizedBox(width: 6),
+                          Text(appointment.serviceName,
+                              style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13)),
+                          const Spacer(),
+                          Text(
+                            'R\$ ${appointment.price.toStringAsFixed(2).replaceAll('.', ',')}',
+                            style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 13),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

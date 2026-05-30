@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/user_model.dart';
 import '../models/appointment_model.dart';
+import '../models/service_model.dart';
 import '../auth/auth_service.dart';
 
 // Provedor do Firestore
@@ -108,5 +109,52 @@ class FirestoreService {
       list.sort((a, b) => b.dateTime.compareTo(a.dateTime));
       return list;
     });
+  }
+
+  // ── Services Collection ──
+
+  /// Retorna um Stream de serviços de um profissional
+  Stream<List<ServiceModel>> getServices(String professionalId) {
+    return _db
+        .collection('services')
+        .where('professionalId', isEqualTo: professionalId)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map((doc) => ServiceModel.fromJson(doc.data(), doc.id))
+          .toList();
+    });
+  }
+
+  /// Cria um novo serviço
+  Future<void> createService(ServiceModel service) async {
+    final docRef = _db.collection('services').doc();
+    final newService = ServiceModel(
+      id: docRef.id,
+      professionalId: service.professionalId,
+      name: service.name,
+      description: service.description,
+      price: service.price,
+      durationMinutes: service.durationMinutes,
+      active: service.active,
+    );
+    await docRef.set(newService.toJson());
+  }
+
+  /// Atualiza um serviço existente
+  Future<void> updateService(ServiceModel service) async {
+    await _db.collection('services').doc(service.id).update(service.toJson());
+  }
+
+  /// Deleta/desativa um serviço (vamos deletar para este MVP)
+  Future<void> deleteService(String serviceId) async {
+    await _db.collection('services').doc(serviceId).delete();
+  }
+
+  // ── Appointment Status Update ──
+
+  /// Atualiza o status de um agendamento
+  Future<void> updateAppointmentStatus(String appointmentId, String status) async {
+    await _db.collection('appointments').doc(appointmentId).update({'status': status});
   }
 }
