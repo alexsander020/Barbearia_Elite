@@ -31,6 +31,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   bool _obscureConfirm    = true;
   bool _isLoading         = false;
   int _currentStep        = 0; // Passo do formulário em 2 etapas
+  String _selectedRole    = 'client'; // client ou professional
 
   @override
   void dispose() {
@@ -87,12 +88,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       );
 
       if (cred.user != null) {
-        // 2. Criar Perfil no Firestore (role default 'client')
+        // 2. Criar Perfil no Firestore
         final newUser = UserModel(
           id: cred.user!.uid,
           name: _nameCtrl.text.trim(),
           email: _emailCtrl.text.trim(),
-          role: 'client', // TODO: ou professional se for registro de prof
+          role: _selectedRole,
           createdAt: DateTime.now(),
         );
 
@@ -177,6 +178,71 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // Seletor de Perfil (Segmented Control Premium)
+        Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: AppColors.surfaceContainerLow,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.outlineVariant),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedRole = 'client'),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: _selectedRole == 'client'
+                          ? AppColors.primary
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Sou Cliente',
+                      style: TextStyle(
+                        color: _selectedRole == 'client'
+                            ? AppColors.onPrimary
+                            : AppColors.onSurfaceVariant,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedRole = 'professional'),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: _selectedRole == 'professional'
+                          ? AppColors.primary
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Sou Cabeleireiro',
+                      style: TextStyle(
+                        color: _selectedRole == 'professional'
+                            ? AppColors.onPrimary
+                            : AppColors.onSurfaceVariant,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+
         Text('Sobre você', style: Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 26)),
         const SizedBox(height: 4),
         Text('Preencha seus dados pessoais', style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 14)),
