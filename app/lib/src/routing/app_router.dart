@@ -14,6 +14,7 @@ import '../../features/professional/dashboard/professional_dashboard_screen.dart
 import '../../features/professional/agenda/daily_agenda_screen.dart';
 import '../../features/professional/financial/financial_dashboard_screen.dart';
 import '../../features/professional/services/manage_services_screen.dart';
+import '../../features/settings/settings_screen.dart';
 import '../../src/core/auth/auth_service.dart';
 import 'app_routes.dart';
 
@@ -83,6 +84,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: AppRoutes.queueRealtime,
             builder: (context, state) => const QueueRealtimeScreen(),
           ),
+          GoRoute(
+            path: AppRoutes.clientSettings,
+            builder: (context, state) => const SettingsScreen(),
+          ),
         ],
       ),
 
@@ -106,6 +111,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: AppRoutes.manageServices,
             builder: (context, state) => const ManageServicesScreen(),
           ),
+          GoRoute(
+            path: AppRoutes.proSettings,
+            builder: (context, state) => const SettingsScreen(),
+          ),
         ],
       ),
     ],
@@ -123,7 +132,8 @@ class ClientShell extends StatelessWidget {
   int _currentIndex(BuildContext context) {
     final location = GoRouterState.of(context).matchedLocation;
     if (location.startsWith(AppRoutes.myAppointments)) return 1;
-    if (location.startsWith(AppRoutes.queueRealtime)) return 2;
+    if (location.startsWith(AppRoutes.queueRealtime))  return 2;
+    if (location.startsWith(AppRoutes.clientSettings)) return 3;
     return 0;
   }
 
@@ -138,12 +148,14 @@ class ClientShell extends StatelessWidget {
             case 0: context.go(AppRoutes.home); break;
             case 1: context.go(AppRoutes.myAppointments); break;
             case 2: context.go(AppRoutes.queueRealtime); break;
+            case 3: context.go(AppRoutes.clientSettings); break;
           }
         },
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Início'),
           NavigationDestination(icon: Icon(Icons.calendar_today_outlined), selectedIcon: Icon(Icons.calendar_today), label: 'Agendamentos'),
           NavigationDestination(icon: Icon(Icons.people_outline), selectedIcon: Icon(Icons.people), label: 'Fila'),
+          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: 'Ajustes'),
         ],
       ),
     );
@@ -151,7 +163,7 @@ class ClientShell extends StatelessWidget {
 }
 
 // ══════════════════════════════════════════════════════════
-//  PROFESSIONAL SHELL — Bottom Navigation (4 tabs)
+//  PROFESSIONAL SHELL — Bottom Navigation (5 tabs)
 // ══════════════════════════════════════════════════════════
 
 class ProfessionalShell extends StatelessWidget {
@@ -160,9 +172,10 @@ class ProfessionalShell extends StatelessWidget {
 
   int _currentIndex(BuildContext context) {
     final location = GoRouterState.of(context).matchedLocation;
-    if (location.startsWith(AppRoutes.dailyAgenda))      return 1;
+    if (location.startsWith(AppRoutes.dailyAgenda))        return 1;
     if (location.startsWith(AppRoutes.financialDashboard)) return 2;
-    if (location.startsWith(AppRoutes.manageServices))   return 3;
+    if (location.startsWith(AppRoutes.manageServices))     return 3;
+    if (location.startsWith(AppRoutes.proSettings))        return 4;
     return 0;
   }
 
@@ -178,6 +191,7 @@ class ProfessionalShell extends StatelessWidget {
             case 1: context.go(AppRoutes.dailyAgenda); break;
             case 2: context.go(AppRoutes.financialDashboard); break;
             case 3: context.go(AppRoutes.manageServices); break;
+            case 4: context.go(AppRoutes.proSettings); break;
           }
         },
         destinations: const [
@@ -185,6 +199,7 @@ class ProfessionalShell extends StatelessWidget {
           NavigationDestination(icon: Icon(Icons.calendar_month_outlined), selectedIcon: Icon(Icons.calendar_month), label: 'Agenda'),
           NavigationDestination(icon: Icon(Icons.attach_money), selectedIcon: Icon(Icons.attach_money), label: 'Financeiro'),
           NavigationDestination(icon: Icon(Icons.content_cut_outlined), selectedIcon: Icon(Icons.content_cut), label: 'Serviços'),
+          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: 'Ajustes'),
         ],
       ),
     );

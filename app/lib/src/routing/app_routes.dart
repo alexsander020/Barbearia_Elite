@@ -23,6 +23,10 @@ abstract class AppRoutes {
   static const String attendance            = '/pro/attendance';
   static const String financialDashboard    = '/pro/financial';
   static const String manageServices        = '/pro/services';
+  static const String proSettings           = '/pro/settings';
+
+  // ── Settings ──
+  static const String clientSettings        = '/settings';
 
   // ── Admin ──
   static const String adminDashboard     = '/admin/dashboard';

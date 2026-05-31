@@ -3,6 +3,7 @@ class UserModel {
   final String name;
   final String email;
   final String role; // 'client' ou 'professional'
+  final String phone;
   final DateTime createdAt;
 
   UserModel({
@@ -10,6 +11,7 @@ class UserModel {
     required this.name,
     required this.email,
     required this.role,
+    this.phone = '',
     required this.createdAt,
   });
 
@@ -20,6 +22,7 @@ class UserModel {
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       role: json['role'] ?? 'client',
+      phone: json['phone'] ?? '',
       createdAt: json['createdAt'] != null 
           ? DateTime.parse(json['createdAt']) 
           : DateTime.now(),
@@ -32,6 +35,7 @@ class UserModel {
       'name': name,
       'email': email,
       'role': role,
+      'phone': phone,
       'createdAt': createdAt.toIso8601String(),
     };
   }
@@ -41,12 +45,14 @@ class UserModel {
     String? name,
     String? email,
     String? role,
+    String? phone,
   }) {
     return UserModel(
       id: id,
       name: name ?? this.name,
       email: email ?? this.email,
       role: role ?? this.role,
+      phone: phone ?? this.phone,
       createdAt: createdAt,
     );
   }
