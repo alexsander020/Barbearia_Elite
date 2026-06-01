@@ -225,14 +225,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 16),
-
-                    // ── Temporário: Acesso Profissional ──
-                    TextButton(
-                      onPressed: () => context.go(AppRoutes.professionalDashboard),
-                      child: const Text('Entrar como Profissional (Teste)'),
-                    ),
-
                     const SizedBox(height: 24),
 
                     // ── Criar conta ──
