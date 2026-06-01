@@ -8,6 +8,7 @@ import '../../../src/core/app_constants.dart';
 import '../../../src/routing/app_routes.dart';
 import '../../../src/core/database/firestore_service.dart';
 import '../../../src/core/models/appointment_model.dart';
+import '../../../src/core/auth/auth_service.dart';
 
 const _mockProfessionalId = 'prof_001_mock';
 
@@ -33,6 +34,9 @@ class ProfessionalDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todayAsync = ref.watch(todayAppointmentsProvider);
+    final currentUserAsync = ref.watch(currentUserProvider);
+    final professionalName = currentUserAsync.value?.name ?? 'Profissional';
+    final firstName = professionalName.split(' ').first;
     final now = DateTime.now();
     final dateStr = DateFormat("EEEE, d MMM", 'pt_BR').format(now);
     final currency = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
@@ -61,6 +65,7 @@ class ProfessionalDashboardScreen extends ConsumerWidget {
                 currency: currency,
                 appointments: null,
                 isLoading: true,
+                firstName: firstName,
               ),
               error: (e, _) => _buildBody(
                 context: context,
@@ -68,6 +73,7 @@ class ProfessionalDashboardScreen extends ConsumerWidget {
                 currency: currency,
                 appointments: [],
                 isLoading: false,
+                firstName: firstName,
               ),
               data: (appointments) => _buildBody(
                 context: context,
@@ -75,6 +81,7 @@ class ProfessionalDashboardScreen extends ConsumerWidget {
                 currency: currency,
                 appointments: appointments,
                 isLoading: false,
+                firstName: firstName,
               ),
             ),
           ),
@@ -89,6 +96,7 @@ class ProfessionalDashboardScreen extends ConsumerWidget {
     required NumberFormat currency,
     required List<AppointmentModel>? appointments,
     required bool isLoading,
+    required String firstName,
   }) {
     final now = DateTime.now();
 
@@ -123,8 +131,8 @@ class ProfessionalDashboardScreen extends ConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Olá, Profissional!',
-                  style: TextStyle(color: AppColors.onSurface, fontSize: 22, fontWeight: FontWeight.bold)),
+                Text('Olá, $firstName!',
+                  style: const TextStyle(color: AppColors.onSurface, fontSize: 22, fontWeight: FontWeight.bold)),
                 Text(
                   dateStr[0].toUpperCase() + dateStr.substring(1),
                   style: TextStyle(color: AppColors.primary.withValues(alpha: 0.8), fontSize: 14),
