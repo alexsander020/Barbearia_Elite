@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../features/splash/splash_screen.dart';
 import '../../features/auth/login_screen.dart';
+import '../../features/auth/professional_login_screen.dart';
 import '../../features/auth/register_screen.dart';
 import '../../features/client/home/home_screen.dart';
 import '../../features/client/schedule/schedule_screen.dart';
@@ -29,7 +30,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (authState.isLoading || authState.hasError) return null;
 
       final isAuth = authState.value != null;
-      final isGoingToAuth = state.matchedLocation == AppRoutes.login || state.matchedLocation == AppRoutes.register;
+      final isGoingToAuth = state.matchedLocation == AppRoutes.login || 
+                            state.matchedLocation == AppRoutes.proLogin ||
+                            state.matchedLocation == AppRoutes.register;
       final isGoingToSplash = state.matchedLocation == AppRoutes.splash;
 
       // Se não está autenticado e tenta acessar área restrita -> Manda pro Login
@@ -54,6 +57,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.login,
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.proLogin,
+        builder: (context, state) => const ProfessionalLoginScreen(),
       ),
       GoRoute(
         path: AppRoutes.register,

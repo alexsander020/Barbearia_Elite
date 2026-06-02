@@ -225,6 +225,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
 
+                    const SizedBox(height: 16),
+
+                    // ── Trocar de Tela ──
+                    OutlinedButton.icon(
+                      onPressed: () => context.go(AppRoutes.proLogin),
+                      icon: const Icon(Icons.content_cut_rounded),
+                      label: const Text('Sou Profissional'),
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      ),
+                    ),
+
                     const SizedBox(height: 24),
 
                     // ── Criar conta ──

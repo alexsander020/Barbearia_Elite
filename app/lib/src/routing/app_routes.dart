@@ -5,9 +5,10 @@
 
 abstract class AppRoutes {
   // ── Auth ──
-  static const String splash   = '/';
-  static const String login    = '/login';
-  static const String register = '/register';
+  static const String splash    = '/';
+  static const String login     = '/login';
+  static const String proLogin  = '/pro-login';
+  static const String register  = '/register';
 
   // ── Client ──
   static const String home                = '/home';
