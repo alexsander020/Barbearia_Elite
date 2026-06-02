@@ -101,7 +101,7 @@ class _ProfessionalLoginScreenState extends ConsumerState<ProfessionalLoginScree
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.onBackground,
+                      color: AppColors.onSurface,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -122,7 +122,7 @@ class _ProfessionalLoginScreenState extends ConsumerState<ProfessionalLoginScree
                     textInputAction: TextInputAction.next,
                     style: const TextStyle(color: AppColors.onSurface),
                     decoration: const InputDecoration(
-                      labelText: AppStrings.emailLabel,
+                      labelText: 'E-mail',
                       prefixIcon: Icon(Icons.email_outlined),
                     ),
                     validator: _validateEmail,
@@ -134,7 +134,7 @@ class _ProfessionalLoginScreenState extends ConsumerState<ProfessionalLoginScree
                     textInputAction: TextInputAction.done,
                     style: const TextStyle(color: AppColors.onSurface),
                     decoration: InputDecoration(
-                      labelText: AppStrings.passwordLabel,
+                      labelText: 'Senha',
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -182,7 +182,7 @@ class _ProfessionalLoginScreenState extends ConsumerState<ProfessionalLoginScree
                             ),
                           )
                         : const Text(
-                            AppStrings.loginBtn,
+                            AppStrings.login,
                             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                   ),
@@ -206,12 +206,12 @@ class _ProfessionalLoginScreenState extends ConsumerState<ProfessionalLoginScree
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        AppStrings.noAccountText,
+                        'Não tem uma conta? ',
                         style: TextStyle(color: AppColors.onSurfaceVariant),
                       ),
                       TextButton(
                         onPressed: () => context.go(AppRoutes.register),
-                        child: const Text(AppStrings.createAccountBtn),
+                        child: const Text('Criar agora'),
                       ),
                     ],
                   ),
