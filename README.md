@@ -171,11 +171,6 @@ flutter run
 
 ---
 
-## 👥 Contribuidores
-
-Desenvolvido em equipe como projeto prático de desenvolvimento mobile.
-
----
 
 ## 👤 Autor Principal
 
