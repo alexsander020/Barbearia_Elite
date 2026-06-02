@@ -200,15 +200,28 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'Sou Cliente',
-                      style: TextStyle(
-                        color: _selectedRole == 'client'
-                            ? AppColors.onPrimary
-                            : AppColors.onSurfaceVariant,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.person,
+                          size: 18,
+                          color: _selectedRole == 'client'
+                              ? AppColors.onPrimary
+                              : AppColors.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          'Sou Cliente',
+                          style: TextStyle(
+                            color: _selectedRole == 'client'
+                                ? AppColors.onPrimary
+                                : AppColors.onSurfaceVariant,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -225,15 +238,28 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'Sou Cabeleireiro',
-                      style: TextStyle(
-                        color: _selectedRole == 'professional'
-                            ? AppColors.onPrimary
-                            : AppColors.onSurfaceVariant,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.content_cut_rounded,
+                          size: 18,
+                          color: _selectedRole == 'professional'
+                              ? AppColors.onPrimary
+                              : AppColors.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          'Sou Cabeleireiro',
+                          style: TextStyle(
+                            color: _selectedRole == 'professional'
+                                ? AppColors.onPrimary
+                                : AppColors.onSurfaceVariant,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
